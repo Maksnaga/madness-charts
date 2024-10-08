@@ -1,6 +1,10 @@
-import { Plugin } from "chart.js";
+import { formatWithThousandsSeprators } from "../services/format-utilities";
+import { DoughnutPlugin } from "../types/doughnut-data";
 
-export function centerTextPlugin(textCenterLabel?: string): Plugin<"doughnut"> {
+export function centerTextPlugin(
+  unit?: string,
+  textCenterLabel?: string
+): DoughnutPlugin {
   return {
     id: "centerText",
     afterDraw: (chart) => {
@@ -14,7 +18,12 @@ export function centerTextPlugin(textCenterLabel?: string): Plugin<"doughnut"> {
 
       const total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
       ctx.font = "bold 28px Arial";
-      ctx.fillText(total.toString(), centerX, centerY - 10);
+
+      ctx.fillText(
+        formatWithThousandsSeprators(total) + unit,
+        centerX,
+        centerY - 10
+      );
 
       ctx.font = "16px Arial";
       ctx.fillText(textCenterLabel ?? "Data", centerX, centerY + 15);
@@ -24,7 +33,7 @@ export function centerTextPlugin(textCenterLabel?: string): Plugin<"doughnut"> {
   };
 }
 
-export function customLabelsPlugin(): Plugin<"doughnut"> {
+export function customLabelsPlugin(): DoughnutPlugin {
   return {
     id: "customSegmentsLabel",
     afterDraw: (chart) => {

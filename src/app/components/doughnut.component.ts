@@ -2,16 +2,20 @@ import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { NgChartsModule, BaseChartDirective } from "ng2-charts";
 import { ChartOptions } from "chart.js";
 import { CustomLegendComponent } from "./custom-legend.component";
-import chartDesign from "./patterns/chart-design";
+import chartDesign from "../patterns/chart-design";
 import {
   centerTextPlugin,
   customLabelsPlugin,
-} from "./plugins/doughnut-plugins";
-import { DoughnutChartData, DoughnutData } from "./types/doughnut-data";
+} from "../plugins/doughnut-plugins";
+import {
+  DoughnutChartData,
+  DoughnutData,
+  DoughnutPlugin,
+} from "../types/doughnut-data";
 import {
   getDoughnutLabels,
   groupDataAfterNthValue,
-} from "./services/doughnut.service";
+} from "../services/doughnut.service";
 import { CommonModule } from "@angular/common";
 
 @Component({
@@ -23,7 +27,7 @@ import { CommonModule } from "@angular/common";
       baseChart
       [data]="doughnutChartData"
       [options]="doughnutChartOptions"
-      [plugins]="chartPlugins"
+      [plugins]="doughnutPlugins"
       [type]="'doughnut'"
     >
     </canvas>
@@ -84,7 +88,7 @@ export class DoughnutComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   private hoverIndex: number | null = null;
 
-  public chartPlugins = [centerTextPlugin("Total"), customLabelsPlugin()];
+  public doughnutPlugins: DoughnutPlugin[] = [];
   public legendItems: any[] = [];
 
   public readonly patterns: CanvasPattern[] = [];
@@ -103,7 +107,7 @@ export class DoughnutComponent implements OnInit {
     responsive: true,
     plugins: {
       legend: {
-        display: false,
+        display: true,
         position: "bottom",
         align: "start",
         labels: {
@@ -115,7 +119,7 @@ export class DoughnutComponent implements OnInit {
         display: false,
       },
     },
-    spacing: 12,
+    spacing: 0,
     cutout: "70%",
     layout: {
       padding: {
@@ -153,6 +157,10 @@ export class DoughnutComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.doughnutPlugins = [
+      centerTextPlugin(this.data[0]?.unit, "Total"),
+      customLabelsPlugin(),
+    ];
     this.initLegendItems();
     this.doughnutChartData = {
       labels: getDoughnutLabels(
@@ -163,7 +171,7 @@ export class DoughnutComponent implements OnInit {
       ),
       datasets: [
         {
-          data: [300, 240, 180, 120, 360, 222],
+          data: this.groupedData().map((x) => x.value),
           borderWidth: 3,
           borderColor: this.colors,
           backgroundColor: (context: any) => {
@@ -178,6 +186,7 @@ export class DoughnutComponent implements OnInit {
         },
       ],
     };
+    this.doughnutChartOptions.spacing = this.data.length * 2;
   }
 
   private groupedData(): DoughnutData[] {

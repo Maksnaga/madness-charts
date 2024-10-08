@@ -13,7 +13,6 @@ export function groupDataAfterNthValue(
     truncatedData = truncatedData.slice(0, maxValues);
     truncatedData[maxValues - 1] = data.slice(maxValues).reduce(
       (result, current) => {
-        result.rate += current.rate;
         result.value += current.value;
         return result;
       },
@@ -43,7 +42,7 @@ export function getDoughnutLabels(
   return truncatedLabels.map(
     (label: string, index: number) =>
       `${getFormatedText(label)} (${formatWithThousandsSeprators(
-        truncatedData[index] ? truncatedData[index].rate ?? (0 as number) : 0
+        truncatedData[index] ? truncatedData[index].value ?? (0 as number) : 0
       )} %)`
   );
 }
