@@ -12,26 +12,43 @@ import {
   DoughnutData,
   DoughnutPlugin,
 } from "../types/doughnut-data";
-import {
-  getDoughnutLabels,
-  groupDataAfterNthValue,
-} from "../services/doughnut.service";
 import { CommonModule } from "@angular/common";
+import { DoughnutService } from "../services/doughnut.service";
+import {
+  Context,
+  GenericTooltipService,
+} from "../services/generic-tooltip.service";
+import { formatWithThousandsSeprators } from "../services/format-utilities";
+import { TooltipChartType } from "../types/tooltip-chart-type";
 
 @Component({
   selector: "moz-angular-doughnut",
   standalone: true,
   imports: [NgChartsModule, CustomLegendComponent, CommonModule],
-  template: `<div style="width:400px">
-    <canvas
-      baseChart
-      [data]="doughnutChartData"
-      [options]="doughnutChartOptions"
-      [plugins]="doughnutPlugins"
-      [type]="'doughnut'"
-    >
-    </canvas>
-  </div>`,
+  providers: [DoughnutService],
+  template: `
+    <div class="container">
+      <div class="main">
+        <canvas
+          baseChart
+          [data]="doughnutChartData"
+          [options]="doughnutChartOptions"
+          [plugins]="doughnutPlugins"
+          [type]="'doughnut'"
+        >
+        </canvas>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      .container {
+        font-weight: 400;
+        font-family: "Roboto", sans-serif;
+        width: 400px;
+      }
+    `,
+  ],
 })
 export class DoughnutComponent implements OnInit {
   /**
@@ -50,9 +67,15 @@ export class DoughnutComponent implements OnInit {
   @Input() labels: string[] = [];
 
   /**
-   * Add centered label in the middle of the <canvas> element
+   * Enable/Disable centered label in the middle of the <canvas> element
    */
   @Input() enableCenteredLabel: boolean = true;
+
+  /**
+   * Add centered label in the middle of the <canvas> element
+   * - Default value is "Data"
+   */
+  @Input() centeredLabel: string = "Data";
 
   /**
    * Disable accessibility patterns
@@ -85,13 +108,14 @@ export class DoughnutComponent implements OnInit {
    */
   @Input() othersLabel: string = "others";
 
+  /**
+   * Enable hover feature (may cause strange behavior when used with width and height in %)
+   */
+  @Input() enableHoverFeature: boolean = false;
+
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-  private hoverIndex: number | null = null;
 
   public doughnutPlugins: DoughnutPlugin[] = [];
-  public legendItems: any[] = [];
-
-  public readonly patterns: CanvasPattern[] = [];
   public readonly colors = chartDesign().colourSets[this.colourSet];
 
   public doughnutChartData: DoughnutChartData = {
@@ -129,41 +153,29 @@ export class DoughnutComponent implements OnInit {
         left: 50,
       },
     },
-    onHover: (event, activeElements, chart) => {
-      const target = event.native?.target as HTMLElement;
-
-      if (chart) {
-        chart.canvas.addEventListener("mousemove", (event: MouseEvent) => {
-          const points = chart.getElementsAtEventForMode(
-            event,
-            "nearest",
-            { intersect: true },
-            false
-          );
-          if (points.length) {
-            const firstPoint = points[0];
-            this.updateHoverPattern(firstPoint.index);
-          } else {
-            this.resetPatterns();
-          }
-        });
-      }
-      if (activeElements && activeElements.length > 0) {
-        target.style.cursor = "pointer";
-      } else {
-        target.style.cursor = "default";
-      }
-    },
   };
 
+  constructor(
+    private readonly doughnutService: DoughnutService,
+    private readonly genericTooltipService: GenericTooltipService
+  ) {}
+
   ngOnInit() {
-    this.doughnutPlugins = [
-      centerTextPlugin(this.data[0]?.unit, "Total"),
-      customLabelsPlugin(),
-    ];
-    this.initLegendItems();
+    this.doughnutPlugins = [customLabelsPlugin()];
+    if (this.enableHoverFeature) {
+      this.doughnutChartOptions.onHover = (event, activeElements, chart) => {
+        if (chart) {
+          this.doughnutService.getOnHoverOptions(activeElements);
+        }
+      };
+    }
+    if (this.enableCenteredLabel) {
+      this.doughnutPlugins.push(
+        centerTextPlugin(this.data[0]?.unit ?? "", this.centeredLabel)
+      );
+    }
     this.doughnutChartData = {
-      labels: getDoughnutLabels(
+      labels: this.doughnutService.getDoughnutLabels(
         this.labels,
         this.data,
         this.maxValues,
@@ -174,62 +186,82 @@ export class DoughnutComponent implements OnInit {
           data: this.groupedData().map((x) => x.value),
           borderWidth: 3,
           borderColor: this.colors,
-          backgroundColor: (context: any) => {
-            const index = context.dataIndex;
-            const value = context.dataset.data[index];
-            const hover = index === this.hoverIndex;
-
-            return value > 0
-              ? this.getPatternForIndex(index, hover)
-              : "transparent";
-          },
+          backgroundColor: this.doughnutService.getBackgroundColor(
+            this.getPatternColors(),
+            this.patternsOrderedList(),
+            this.disableAccessibility,
+            this.enableHoverFeature
+          ),
         },
       ],
     };
     this.doughnutChartOptions.spacing = this.data.length * 2;
+    let animationFrameId: number | null = null;
+    this.doughnutService.onHoverIndex.subscribe((index) => {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+
+      animationFrameId = requestAnimationFrame(() => {
+        this.doughnutChartData.datasets[0].backgroundColor =
+          this.doughnutService.getBackgroundColor(
+            this.getPatternColors(),
+            this.patternsOrderedList(),
+            this.disableAccessibility,
+            this.enableHoverFeature
+          );
+        this.chart?.update();
+      });
+    });
+
+    this.doughnutChartOptions.plugins = {
+      ...this.doughnutChartOptions.plugins,
+      tooltip: {
+        enabled: false,
+        external: (context: Context) => {
+          this.genericTooltipService.createTooltip(
+            context,
+            this.getTooltipData.bind(this),
+            {
+              chartType: TooltipChartType.DOUGHNUT,
+            },
+            this.colors,
+            this.patternsOrderedList(),
+            this.disableAccessibility
+          );
+        },
+      },
+    };
   }
 
   private groupedData(): DoughnutData[] {
-    return groupDataAfterNthValue(this.data, this.maxValues);
+    return this.doughnutService.groupDataAfterNthValue(
+      this.data,
+      this.maxValues
+    );
   }
 
-  private updateHoverPattern(index: number) {
-    if (this.hoverIndex !== index) {
-      this.hoverIndex = index;
-    }
+  private getPatternColors(): string[] {
+    return this.newPatternsOrder.length !== 6
+      ? chartDesign().colourSets[this.colourSet]
+      : this.newPatternsOrder.map((id) => {
+          return chartDesign().colourSets[this.colourSet][id];
+        });
   }
 
-  private resetPatterns() {
-    if (this.hoverIndex !== null) {
-      this.hoverIndex = null;
-    }
+  private patternsOrderedList() {
+    return this.newPatternsOrder.length !== 6
+      ? chartDesign().patternsStandardList
+      : this.newPatternsOrder.map((id) => {
+          return chartDesign().patternsStandardList[id];
+        });
   }
 
-  public onLegendToggle(index: number): void {
-    this.legendItems[index].active = !this.legendItems[index].active;
-    this.chart?.chart?.toggleDataVisibility(index);
-    this.chart?.update();
-  }
-
-  private initLegendItems(): void {
-    this.legendItems = this.doughnutChartData.labels!.map((label, index) => ({
-      text: label,
-      active: true,
-      pattern: this.patterns[index],
-    }));
-  }
-
-  private getPatternForIndex(
-    index: number,
-    hover: boolean,
-    disabledAccessibility: boolean = false
-  ): CanvasPattern | string {
-    const patterns = chartDesign().patternsStandardList;
-
-    if (index >= 0 && index < patterns.length) {
-      return patterns[index](hover, this.colors[index], disabledAccessibility);
-    }
-
-    return "transparent";
+  private getTooltipData(context: Context): string {
+    const dataIndex = context.tooltip.dataPoints[0].dataIndex as number;
+    const tooltipData = this.groupedData()[dataIndex];
+    const value = formatWithThousandsSeprators(tooltipData.value);
+    const unit = tooltipData.unit ?? "";
+    return `${value}${unit}`;
   }
 }

@@ -12,6 +12,8 @@ import { DoughnutData } from "./app/types/doughnut-data";
     <moz-angular-doughnut
       [labels]="labels"
       [data]="data"
+      [centeredLabel]="'Data'"
+      [enableHoverFeature]="true"
     ></moz-angular-doughnut>
   `,
 })

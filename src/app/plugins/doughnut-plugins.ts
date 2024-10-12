@@ -17,7 +17,7 @@ export function centerTextPlugin(
       ctx.textBaseline = "middle";
 
       const total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-      ctx.font = "bold 28px Arial";
+      ctx.font = "bold 28px Roboto";
 
       ctx.fillText(
         formatWithThousandsSeprators(total) + unit,
@@ -25,7 +25,7 @@ export function centerTextPlugin(
         centerY - 10
       );
 
-      ctx.font = "16px Arial";
+      ctx.font = "16px Roboto";
       ctx.fillText(textCenterLabel ?? "Data", centerX, centerY + 15);
 
       ctx.restore();
@@ -39,7 +39,7 @@ export function customLabelsPlugin(): DoughnutPlugin {
     afterDraw: (chart) => {
       const ctx = chart.ctx;
       ctx.save();
-      ctx.font = "12px Arial";
+      ctx.font = "12px Roboto";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
