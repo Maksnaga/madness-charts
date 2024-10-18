@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { DoughnutComponent } from "./app/components/doughnut.component";
+import { DoughnutComponent } from "./app/components/doughnut/doughnut.component";
 import { CommonModule } from "@angular/common";
 import { DoughnutData } from "./app/types/doughnut-data";
 
@@ -12,8 +12,8 @@ import { DoughnutData } from "./app/types/doughnut-data";
     <moz-angular-doughnut
       [labels]="labels"
       [data]="data"
-      [centeredLabel]="'Data'"
       [enableHoverFeature]="true"
+      [enableCenteredLabel]="true"
     ></moz-angular-doughnut>
   `,
 })
@@ -23,13 +23,14 @@ export class App {
     {
       value: 2771824.19,
       unit: "€",
+      rate: 20,
     },
     {
       value: 1715453.65,
       unit: "€",
+      rate: 80,
     },
   ];
-  name = "Angular";
 }
 
 bootstrapApplication(App);

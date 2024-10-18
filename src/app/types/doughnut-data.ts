@@ -5,7 +5,8 @@ type AnyObject = Record<string, any>;
 export interface DoughnutData {
   tooltipLabel?: number;
   value: number;
-  unit?: string;
+  unit: string;
+  rate: number;
 }
 
 export type DoughnutPlugin = Plugin<"doughnut", AnyObject>;

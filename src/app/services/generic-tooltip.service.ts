@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { TooltipChartType } from "../types/tooltip-chart-type";
-import { getPatternIndexWithShift } from "./format-utilities";
 import { PatternService } from "./pattern.service";
+import { FormatUtilitiesService } from "./format-utilities.service";
 
 type BodyItem = {
   after: string[];
@@ -71,7 +71,10 @@ export class GenericTooltipService {
   yValue = "";
   patternShifting = 0;
 
-  constructor(private readonly patternService: PatternService) {}
+  constructor(
+    private readonly patternService: PatternService,
+    private readonly formatUtilitiesService: FormatUtilitiesService
+  ) {}
 
   createTooltip(
     context: Context,
@@ -371,7 +374,10 @@ export class GenericTooltipService {
     } else {
       index = this.datasetIndex + 1;
     }
-    const patternIndex = getPatternIndexWithShift(index, this.patternShifting);
+    const patternIndex = this.formatUtilitiesService.getPatternIndexWithShift(
+      index,
+      this.patternShifting
+    );
     if (
       this.chartType !== "LINE_CHART" &&
       this.chartType !== "RADAR" &&

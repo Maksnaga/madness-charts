@@ -1,56 +1,41 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { NgChartsModule, BaseChartDirective } from "ng2-charts";
-import { ChartOptions } from "chart.js";
-import { CustomLegendComponent } from "./custom-legend.component";
-import chartDesign from "../patterns/chart-design";
 import {
-  centerTextPlugin,
-  customLabelsPlugin,
-} from "../plugins/doughnut-plugins";
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  Plugin,
+  ChartOptions,
+} from "chart.js";
+import chartDesign from "../../patterns/chart-design";
 import {
   DoughnutChartData,
   DoughnutData,
   DoughnutPlugin,
-} from "../types/doughnut-data";
+} from "../../types/doughnut-data";
 import { CommonModule } from "@angular/common";
-import { DoughnutService } from "../services/doughnut.service";
 import {
   Context,
   GenericTooltipService,
-} from "../services/generic-tooltip.service";
-import { formatWithThousandsSeprators } from "../services/format-utilities";
-import { TooltipChartType } from "../types/tooltip-chart-type";
+} from "../../services/generic-tooltip.service";
+import { TooltipChartType } from "../../types/tooltip-chart-type";
+import { DoughnutChartFunctionsService } from "../../services/doughnut-chart-functions.service";
+import { FormatUtilitiesService } from "../../services/format-utilities.service";
+import { CustomLegendComponent } from "./custom-legend.component";
+ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 @Component({
   selector: "moz-angular-doughnut",
   standalone: true,
   imports: [NgChartsModule, CustomLegendComponent, CommonModule],
-  providers: [DoughnutService],
-  template: `
-    <div class="container">
-      <div class="main">
-        <canvas
-          baseChart
-          [data]="doughnutChartData"
-          [options]="doughnutChartOptions"
-          [plugins]="doughnutPlugins"
-          [type]="'doughnut'"
-        >
-        </canvas>
-      </div>
-    </div>
-  `,
-  styles: [
-    `
-      .container {
-        font-weight: 400;
-        font-family: "Roboto", sans-serif;
-        width: 400px;
-      }
-    `,
-  ],
+  providers: [DoughnutChartFunctionsService, FormatUtilitiesService],
+  templateUrl: "./doughnut.component.html",
+  styleUrl: "./doughnut.component.scss",
 })
 export class DoughnutComponent implements OnInit {
+  public json = JSON;
   /**
    * Value of the id attribute present on the <canvas> element containing the chart
    */
@@ -67,20 +52,24 @@ export class DoughnutComponent implements OnInit {
   @Input() labels: string[] = [];
 
   /**
+   * Add custom CSS classes to the <canvas> element
+   */
+  @Input() cssClasses: string | undefined = undefined;
+
+  /**
    * Enable/Disable centered label in the middle of the <canvas> element
    */
   @Input() enableCenteredLabel: boolean = true;
 
   /**
-   * Add centered label in the middle of the <canvas> element
-   * - Default value is "Data"
-   */
-  @Input() centeredLabel: string = "Data";
-
-  /**
    * Disable accessibility patterns
    */
   @Input() disableAccessibility: boolean = false;
+
+  /**
+   * Enable hover feature (may cause strange behavior when used with width and height in %)
+   */
+  @Input() enableHoverFeature: boolean = false;
 
   /**
    * Used to choose the colour set of the charts as defined in the Figma prototypes.
@@ -99,24 +88,38 @@ export class DoughnutComponent implements OnInit {
   @Input() newPatternsOrder: number[] = [0, 1, 2, 3, 4, 5];
 
   /**
+   * Value of the `width` css property used to define the width of the <canvas> element
+   */
+  @Input() width: string = "400px";
+
+  /**
+   * Value of the `height` css property used to define the height of the <canvas> element
+   */
+  @Input() height: string = "400px";
+
+  /**
    * Maximum number of data to be displayed in the Chart
    */
   @Input() maxValues: number = 5;
+
+  /**
+   * Add custom CSS styles to the <canvas> element
+   */
+  @Input() styles: Partial<CSSStyleDeclaration> = {};
+
+  /**
+   * Value of the `plugins` key passed to the Chart config
+   */
+  @Input() plugins: Plugin<"doughnut">[] = [];
 
   /**
    * Value of the 'others' label if maxValue is reached
    */
   @Input() othersLabel: string = "others";
 
-  /**
-   * Enable hover feature (may cause strange behavior when used with width and height in %)
-   */
-  @Input() enableHoverFeature: boolean = false;
-
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   public doughnutPlugins: DoughnutPlugin[] = [];
-  public readonly colors = chartDesign().colourSets[this.colourSet];
 
   public doughnutChartData: DoughnutChartData = {
     labels: [],
@@ -131,7 +134,7 @@ export class DoughnutComponent implements OnInit {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
+        display: false,
         position: "bottom",
         align: "start",
         labels: {
@@ -154,28 +157,28 @@ export class DoughnutComponent implements OnInit {
       },
     },
   };
+  public readonly colors = this.patternsColors();
 
   constructor(
-    private readonly doughnutService: DoughnutService,
-    private readonly genericTooltipService: GenericTooltipService
+    public readonly doughnutChartFunctionsService: DoughnutChartFunctionsService,
+    private readonly genericTooltipService: GenericTooltipService,
+    private readonly formatUtilitiesService: FormatUtilitiesService
   ) {}
 
   ngOnInit() {
-    this.doughnutPlugins = [customLabelsPlugin()];
     if (this.enableHoverFeature) {
-      this.doughnutChartOptions.onHover = (event, activeElements, chart) => {
+      this.doughnutChartOptions.onHover = (chart) => {
         if (chart) {
-          this.doughnutService.getOnHoverOptions(activeElements);
+          this.doughnutChartFunctionsService.getOnHoverOptions();
         }
       };
     }
-    if (this.enableCenteredLabel) {
-      this.doughnutPlugins.push(
-        centerTextPlugin(this.data[0]?.unit ?? "", this.centeredLabel)
-      );
-    }
+    this.doughnutPlugins.push(
+      this.doughnutChartFunctionsService.getCenteredLabelPlugin(this.data)
+    );
+
     this.doughnutChartData = {
-      labels: this.doughnutService.getDoughnutLabels(
+      labels: this.doughnutChartFunctionsService.getDoughnutLabels(
         this.labels,
         this.data,
         this.maxValues,
@@ -184,28 +187,33 @@ export class DoughnutComponent implements OnInit {
       datasets: [
         {
           data: this.groupedData().map((x) => x.value),
-          borderWidth: 3,
-          borderColor: this.colors,
-          backgroundColor: this.doughnutService.getBackgroundColor(
-            this.getPatternColors(),
-            this.patternsOrderedList(),
-            this.disableAccessibility,
+          backgroundColor:
+            this.doughnutChartFunctionsService.getBackgroundColor(
+              this.patternsColors(),
+              this.patternsOrderedList(),
+              this.disableAccessibility,
+              this.enableHoverFeature
+            ),
+          borderColor: this.doughnutChartFunctionsService.getBorderColor(
+            this.patternsColors(),
             this.enableHoverFeature
           ),
         },
       ],
     };
+    (this.doughnutChartData as any).datasets[0].raw_value =
+      this.groupedData().map((x) => x.value);
     this.doughnutChartOptions.spacing = this.data.length * 2;
     let animationFrameId: number | null = null;
-    this.doughnutService.onHoverIndex.subscribe((index) => {
+    this.doughnutChartFunctionsService.onHoverIndex.subscribe((index) => {
       if (animationFrameId !== null) {
         cancelAnimationFrame(animationFrameId);
       }
 
       animationFrameId = requestAnimationFrame(() => {
         this.doughnutChartData.datasets[0].backgroundColor =
-          this.doughnutService.getBackgroundColor(
-            this.getPatternColors(),
+          this.doughnutChartFunctionsService.getBackgroundColor(
+            this.patternsColors(),
             this.patternsOrderedList(),
             this.disableAccessibility,
             this.enableHoverFeature
@@ -227,21 +235,25 @@ export class DoughnutComponent implements OnInit {
             },
             this.colors,
             this.patternsOrderedList(),
-            this.disableAccessibility
+            this.disablePattern()
           );
         },
       },
     };
   }
 
+  private disablePattern(): boolean {
+    return this.disableAccessibility;
+  }
+
   private groupedData(): DoughnutData[] {
-    return this.doughnutService.groupDataAfterNthValue(
+    return this.doughnutChartFunctionsService.groupDataAfterNthValue(
       this.data,
       this.maxValues
     );
   }
 
-  private getPatternColors(): string[] {
+  private patternsColors(): string[] {
     return this.newPatternsOrder.length !== 6
       ? chartDesign().colourSets[this.colourSet]
       : this.newPatternsOrder.map((id) => {
@@ -260,8 +272,13 @@ export class DoughnutComponent implements OnInit {
   private getTooltipData(context: Context): string {
     const dataIndex = context.tooltip.dataPoints[0].dataIndex as number;
     const tooltipData = this.groupedData()[dataIndex];
-    const value = formatWithThousandsSeprators(tooltipData.value);
+    const rate = this.formatUtilitiesService.formatWithThousandsSeparators(
+      tooltipData.rate
+    );
+    const value = this.formatUtilitiesService.formatWithThousandsSeparators(
+      tooltipData.value
+    );
     const unit = tooltipData.unit ?? "";
-    return `${value}${unit}`;
+    return `${value}${unit} (${rate})%`;
   }
 }
