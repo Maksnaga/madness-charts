@@ -4,6 +4,7 @@ import { Chart, Plugin } from "chart.js";
 import { DoughnutData } from "../types/doughnut-data";
 import { FormatUtilitiesService } from "./format-utilities.service";
 import { ColorFunctionsService } from "./color-function.service";
+import { ChartLegendService } from "./chart-legend.service";
 
 @Injectable({
   providedIn: "root",
@@ -16,38 +17,38 @@ export class DoughnutChartFunctionsService {
 
   constructor(
     private readonly formatUtilitiesService: FormatUtilitiesService,
-    private readonly colorFunctionsService: ColorFunctionsService
+    private readonly colorFunctionsService: ColorFunctionsService,
+    private readonly chartLegendService: ChartLegendService
   ) {}
 
-  // // Convertion de `privateGetHtmlLegendPlugin`
-  // privateGetHtmlLegendPlugin(
-  //   legendContainer: HTMLElement | null,
-  //   selectMode: boolean,
-  //   disableAccessibility: boolean,
-  //   patternsColors: string[],
-  //   patternsList: Array<
-  //     (
-  //       hover: boolean,
-  //       color: string,
-  //       disableAccessibility: boolean
-  //     ) => CanvasPattern
-  //   >,
-  //   maxValueToDisplay: number,
-  //   doughnutData: any,
-  //   enableHoverFeature: boolean
-  // ): Plugin<"doughnut"> {
-  //   return getHtmlLegendPlugin(
-  //     legendContainer,
-  //     selectMode,
-  //     this.onHoverIndex,
-  //     disableAccessibility,
-  //     patternsColors,
-  //     patternsList,
-  //     enableHoverFeature,
-  //     maxValueToDisplay,
-  //     doughnutData
-  //   );
-  // }
+  privateGetHtmlLegendPlugin(
+    legendContainer: BehaviorSubject<HTMLElement | null>,
+    selectMode: BehaviorSubject<boolean>,
+    disableAccessibility: boolean,
+    patternsColors: string[],
+    patternsList: Array<
+      (
+        hover: boolean,
+        color: string,
+        disableAccessibility: boolean
+      ) => CanvasPattern
+    >,
+    maxValueToDisplay: number,
+    doughnutData: any,
+    enableHoverFeature: boolean
+  ): Plugin<"doughnut"> {
+    return this.chartLegendService.getHtmlLegendPlugin(
+      legendContainer,
+      selectMode,
+      this.onHoverIndex,
+      disableAccessibility,
+      patternsColors,
+      patternsList,
+      enableHoverFeature,
+      maxValueToDisplay,
+      doughnutData
+    );
+  }
 
   getBackgroundColor(
     patternsColors: string[],

@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { NgChartsModule, BaseChartDirective } from "ng2-charts";
 import {
   Chart as ChartJS,
@@ -24,18 +31,23 @@ import { TooltipChartType } from "../../types/tooltip-chart-type";
 import { DoughnutChartFunctionsService } from "../../services/doughnut-chart-functions.service";
 import { FormatUtilitiesService } from "../../services/format-utilities.service";
 import { CustomLegendComponent } from "./custom-legend.component";
+import { BehaviorSubject } from "rxjs";
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 @Component({
   selector: "moz-angular-doughnut",
   standalone: true,
   imports: [NgChartsModule, CustomLegendComponent, CommonModule],
-  providers: [DoughnutChartFunctionsService, FormatUtilitiesService],
   templateUrl: "./doughnut.component.html",
   styleUrl: "./doughnut.component.scss",
 })
-export class DoughnutComponent implements OnInit {
-  public json = JSON;
+export class DoughnutComponent implements AfterViewInit {
+  @ViewChild("legendContainer", { read: ElementRef })
+  legendContainerElementRef?: ElementRef;
+
+  selectMode = new BehaviorSubject<boolean>(false);
+  legendContainer = new BehaviorSubject<HTMLElement | null>(null);
+
   /**
    * Value of the id attribute present on the <canvas> element containing the chart
    */
@@ -165,7 +177,12 @@ export class DoughnutComponent implements OnInit {
     private readonly formatUtilitiesService: FormatUtilitiesService
   ) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.legendContainer.next(this.legendContainerElementRef?.nativeElement);
+    const doughnutDataAndLabels = {
+      data: this.data,
+      labels: this.labels,
+    };
     if (this.enableHoverFeature) {
       this.doughnutChartOptions.onHover = (chart) => {
         if (chart) {
@@ -174,6 +191,16 @@ export class DoughnutComponent implements OnInit {
       };
     }
     this.doughnutPlugins.push(
+      this.doughnutChartFunctionsService.privateGetHtmlLegendPlugin(
+        this.legendContainer,
+        this.selectMode,
+        this.disablePattern(),
+        this.patternsColors(),
+        this.patternsOrderedList(),
+        this.maxValues,
+        doughnutDataAndLabels,
+        this.enableHover()
+      ) as unknown as DoughnutPlugin,
       this.doughnutChartFunctionsService.getCenteredLabelPlugin(this.data)
     );
 
@@ -244,6 +271,10 @@ export class DoughnutComponent implements OnInit {
 
   private disablePattern(): boolean {
     return this.disableAccessibility;
+  }
+
+  private enableHover(): boolean {
+    return this.enableHoverFeature;
   }
 
   private groupedData(): DoughnutData[] {
