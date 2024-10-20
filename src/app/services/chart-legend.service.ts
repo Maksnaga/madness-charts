@@ -66,11 +66,9 @@ export class ChartLegendService {
     chartData?: any
   ): HTMLLegendPlugin {
     const chartLegendService = this;
-    debugger;
     return {
       id: "htmlLegend",
       afterUpdate(chart: any) {
-        debugger;
         const isDoughnut: boolean = chart.config.type === "doughnut";
         const flexDirection = isDoughnut ? "column" : "row";
         const ul: HTMLUListElement = chartLegendService.getOrCreateLegendList(
@@ -351,7 +349,7 @@ export class ChartLegendService {
     chart: Chart,
     item: ChartItem,
     patternsColors: string[]
-  ): HTMLInputElement {
+  ): any {
     const isDoughnut: boolean = chart.config.type === "doughnut";
     const index: number = isDoughnut ? item.index : item.datasetIndex;
     const checkbox = document.createElement("input");

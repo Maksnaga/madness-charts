@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
 } from "@angular/core";
 import { NgChartsModule, BaseChartDirective } from "ng2-charts";
@@ -32,12 +31,18 @@ import { DoughnutChartFunctionsService } from "../../services/doughnut-chart-fun
 import { FormatUtilitiesService } from "../../services/format-utilities.service";
 import { CustomLegendComponent } from "./custom-legend.component";
 import { BehaviorSubject } from "rxjs";
+import { CheckboxModule } from "@mozaic-ds/angular";
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 @Component({
   selector: "moz-angular-doughnut",
   standalone: true,
-  imports: [NgChartsModule, CustomLegendComponent, CommonModule],
+  imports: [
+    NgChartsModule,
+    CustomLegendComponent,
+    CommonModule,
+    CheckboxModule,
+  ],
   templateUrl: "./doughnut.component.html",
   styleUrl: "./doughnut.component.scss",
 })
