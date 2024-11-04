@@ -46,12 +46,6 @@ export class DoughnutComponent implements AfterViewInit {
   @ViewChild("legendContainer", { read: ElementRef })
   legendContainerElementRef?: ElementRef;
 
-  selectMode = new BehaviorSubject<boolean>(false);
-  legendContainer = new BehaviorSubject<HTMLElement | null>(null);
-
-  colourSets = chartDesign().colourSets;
-  patternsStandardList = chartDesign().patternsStandardList;
-
   /**
    * Value of the id attribute present on the <canvas> element containing the chart
    */
@@ -174,7 +168,13 @@ export class DoughnutComponent implements AfterViewInit {
     },
   };
 
-  public readonly colors = this.patternsColors();
+  private readonly selectMode = new BehaviorSubject<boolean>(false);
+  private readonly legendContainer = new BehaviorSubject<HTMLElement | null>(
+    null
+  );
+
+  private readonly colourSets = chartDesign().colourSets;
+  private readonly patternsStandardList = chartDesign().patternsStandardList;
 
   constructor(
     public readonly doughnutChartFunctionsService: DoughnutChartFunctionsService,

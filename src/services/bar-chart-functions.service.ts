@@ -101,6 +101,20 @@ export class BarChartFunctionsService {
     });
   }
 
+  public getOnHoverOptions() {
+    return (
+      _ignore: unknown,
+      activeElements: Array<{ index: number; datasetIndex: number }>
+    ) => {
+      if (activeElements[0] !== undefined) {
+        this.onHoverIndex.value.dataSetIndex = activeElements[0].datasetIndex;
+        this.onHoverIndex.value.columnIndex = activeElements[0].index;
+      } else {
+        this.resetOnHoverIndex();
+      }
+    };
+  }
+
   // Hack to force the chart to reload on Hover
   private reloadChart() {
     this.borderWidth.next(4);
@@ -209,19 +223,5 @@ export class BarChartFunctionsService {
       dataSetIndex: -1,
       columnIndex: -1,
     });
-  }
-
-  private getOnHoverOptions() {
-    return (
-      _ignore: unknown,
-      activeElements: Array<{ index: number; datasetIndex: number }>
-    ) => {
-      if (activeElements[0] !== undefined) {
-        this.onHoverIndex.value.dataSetIndex = activeElements[0].datasetIndex;
-        this.onHoverIndex.value.columnIndex = activeElements[0].index;
-      } else {
-        this.resetOnHoverIndex();
-      }
-    };
   }
 }

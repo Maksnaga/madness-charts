@@ -16,6 +16,8 @@ import {
   LinearScale,
   Plugin,
   ChartOptions,
+  ChartEvent,
+  ActiveElement,
 } from "chart.js";
 
 import { CommonModule } from "@angular/common";
@@ -187,6 +189,21 @@ export class BarChartComponent implements AfterViewInit {
         0
       ),
     };
+
+    this.barChartOptions.onHover = (
+      event: ChartEvent,
+      elements: ActiveElement[],
+      chart
+    ) => {
+      if (chart) {
+        if (this.enableHover()) {
+          this.barChartFunctionService.getOnHoverOptions();
+        }
+        chart.canvas.style.cursor =
+          elements.length !== 0 ? "pointer" : "default";
+      }
+    };
+
     this.barChartPlugins.push(
       this.barChartFunctionService.privateGetHtmlLegendPlugin(
         this.legendContainer,
@@ -199,7 +216,6 @@ export class BarChartComponent implements AfterViewInit {
     );
   }
 
-  // Méthode privée pour initialiser les options du graphique
   private initializeChartOptions(): void {
     this.barChartOptions = {
       elements: {

@@ -4936,7 +4936,7 @@
         },
         {
             "name": "BarChartComponent",
-            "id": "component-BarChartComponent-23551320cf7ee1c8171ba1764b6a3cb1fb4c6b8b2cea42fee19e00e473a1547dbf099dafd663fcd793e5a73398f8808d4875af18edaa11e8a8885d03f1153557",
+            "id": "component-BarChartComponent-203af2ee28de4bdb3927c545a91c9f3d9fdc64d8325496ade5d7b9a7fc63625780c8606680c3af682591112b9a3cb629b5a1737e9ee24400fa6cb93e1d7c817d",
             "file": "src/components/bar/bar-chart.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5158,7 +5158,6 @@
                 },
                 {
                     "name": "barChartOptions",
-                    "defaultValue": "{\r\n    elements: {\r\n      bar: {\r\n        borderSkipped: false,\r\n      },\r\n    },\r\n    plugins: {\r\n      legend: {\r\n        display: false,\r\n      },\r\n      title: {\r\n        display: false,\r\n      },\r\n      tooltip: {\r\n        enabled: false,\r\n        external: (context: Context) => {\r\n          const dataIndex: number =\r\n            context.tooltip.dataPoints?.[0].dataIndex ?? 0;\r\n          if (!this.labels[dataIndex] || this.labels[dataIndex] === \"\") {\r\n            return;\r\n          }\r\n          this.genericTooltipService.createTooltip(\r\n            context,\r\n            this.getTooltipData.bind(this),\r\n            {\r\n              chartType: TooltipChartType.BAR_CHART,\r\n              firstLineLabel: this.xValue,\r\n              secondLineLabel: this.yValue,\r\n            },\r\n            this.patternsColors(),\r\n            this.patternsOrderedList(),\r\n            this.disableAccessibility\r\n          );\r\n        },\r\n      },\r\n    },\r\n    scales: {\r\n      x: {\r\n        stacked: this.stacked,\r\n        title: {\r\n          display: this.xAxisTitle !== null,\r\n          text: this.xAxisTitle ?? \"\",\r\n        },\r\n      },\r\n      y: {\r\n        stacked: this.stacked,\r\n        title: {\r\n          display: this.yAxisTitle !== null,\r\n          text: this.yAxisTitle ?? \"\",\r\n        },\r\n        ticks: {\r\n          callback: (val: string | number): string => {\r\n            return this.unit === \"%\"\r\n              ? this.formatUtilitiesService.formatTicks(\r\n                  val as number,\r\n                  this.unit\r\n                )\r\n              : this.formatUtilitiesService.formatWithThousandsSeparators(\r\n                  val as number\r\n                ) +\r\n                  \" \" +\r\n                  this.unit;\r\n          },\r\n        },\r\n      },\r\n    },\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ChartOptions<bar>",
@@ -5179,7 +5178,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 225,
+                    "line": 159,
                     "modifierKind": [
                         125
                     ]
@@ -5193,7 +5192,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 227,
+                    "line": 161,
                     "modifierKind": [
                         123,
                         148
@@ -5238,7 +5237,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 228,
+                    "line": 162,
                     "modifierKind": [
                         123,
                         148
@@ -5289,7 +5288,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 307,
+                    "line": 313,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5302,7 +5301,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 311,
+                    "line": 317,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5335,7 +5334,7 @@
                     "optional": false,
                     "returnType": "number[]",
                     "typeParameters": [],
-                    "line": 320,
+                    "line": 326,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5385,7 +5384,7 @@
                     "optional": false,
                     "returnType": "string[]",
                     "typeParameters": [],
-                    "line": 266,
+                    "line": 272,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5409,7 +5408,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 315,
+                    "line": 321,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5429,7 +5428,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 336,
+                    "line": 342,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5453,7 +5452,20 @@
                     "optional": false,
                     "returnType": "number | null",
                     "typeParameters": [],
-                    "line": 275,
+                    "line": 281,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "initializeChartOptions",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 202,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5466,7 +5478,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 236,
+                    "line": 170,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -5476,7 +5488,7 @@
                     "optional": false,
                     "returnType": "string[]",
                     "typeParameters": [],
-                    "line": 290,
+                    "line": 296,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5489,7 +5501,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 299,
+                    "line": 305,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5519,7 +5531,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\r\n  AfterViewInit,\r\n  Component,\r\n  ElementRef,\r\n  Input,\r\n  ViewChild,\r\n} from \"@angular/core\";\r\nimport { NgChartsModule } from \"ng2-charts\";\r\nimport {\r\n  Chart as ChartJS,\r\n  Title,\r\n  Tooltip,\r\n  Legend,\r\n  BarElement,\r\n  CategoryScale,\r\n  LinearScale,\r\n  Plugin,\r\n  ChartOptions,\r\n} from \"chart.js\";\r\n\r\nimport { CommonModule } from \"@angular/common\";\r\n\r\nimport { CheckboxModule } from \"@mozaic-ds/angular/adeo\";\r\nimport { BarChartData, BarData, BarPlugin } from \"../../types/bar-data\";\r\nimport chartDesign from \"../../patterns/chart-design\";\r\nimport { BarChartFunctionsService } from \"../../services/bar-chart-functions.service\";\r\nimport {\r\n  Context,\r\n  GenericTooltipService,\r\n} from \"../../services/generic-tooltip.service\";\r\nimport { FormatUtilitiesService } from \"../../services/format-utilities.service\";\r\nimport { TooltipChartType } from \"../../types/tooltip-chart-type\";\r\nimport { BehaviorSubject } from \"rxjs\";\r\n\r\nChartJS.register(\r\n  Title,\r\n  Tooltip,\r\n  Legend,\r\n  BarElement,\r\n  CategoryScale,\r\n  LinearScale\r\n);\r\n\r\n@Component({\r\n  selector: \"moz-ng-bar-chart\",\r\n  standalone: true,\r\n  imports: [NgChartsModule, CommonModule, CheckboxModule],\r\n  templateUrl: \"./bar-chart.component.html\",\r\n  styleUrl: \"./bar-chart.component.scss\",\r\n})\r\nexport class BarChartComponent implements AfterViewInit {\r\n  @ViewChild(\"legendContainer\", { read: ElementRef })\r\n  legendContainerElementRef?: ElementRef;\r\n\r\n  selectMode = new BehaviorSubject<boolean>(false);\r\n  legendContainer = new BehaviorSubject<HTMLElement | null>(null);\r\n\r\n  public xValue?: string;\r\n  public yValue?: string;\r\n  public barChartData: BarChartData = {\r\n    labels: [],\r\n    datasets: [],\r\n  };\r\n\r\n  /**\r\n   * Value of the id attribute present on the <canvas> tag element the chart\r\n   */\r\n  @Input() chartId: string = \"radar-chart\";\r\n\r\n  /**\r\n   * Unit of values on canvas Y axis\r\n   */\r\n  @Input() unit: string = \"%\";\r\n\r\n  /**\r\n   * Labels used to label the index axis (default x axes). See [Data structures documentation](https://www.chartjs.org/docs/latest/general/data-structures.html)\r\n   */\r\n  @Input() labels: string[] = [];\r\n\r\n  /**\r\n   * Used to choose the colour set of the charts as defined in the Figma prototypes.\r\n   * 7 colour sets are currently defined:\r\n   * - Default 0 corresponds to the current one\r\n   * - 1 to 6 corresponds to the \"new\" [colour sets](https://www.figma.com/file/Hn6PyvnR385Ta0XN3KqOI9/04.-Dataviz---Documentation-(read-only)?type=design&node-id=1-69316&mode=design&t=sDytQ5BipsryWkuA-0)\r\n   * Note: All the sets are defined in /src/services/patterns/ChartDesign.ts\r\n   */\r\n  @Input() colourSet: number = 0;\r\n\r\n  /**\r\n   * 6 patterns exist and are not randomly given but follow the order defined in [patternsStandardList](/src/services/patterns/ChartDesign.ts)\r\n   * Additionally, a pattern has only one possible colour per colour set as defined in the Figma prototype.\r\n   * In some use cases, the chart may need to show a different orders of these patterns, this can be changed using the props newPatternsOrder\r\n   */\r\n  @Input() newPatternsOrder: number[] = [0, 1, 2, 3, 4, 5];\r\n\r\n  /**\r\n   * Value of the `datasets` key present in the `data` object passed to the Chart config\r\n   * If it's the stacked barchart (stacked : true in props), each dataset may contain the stack it belongs. stack Zero if not defined\r\n   */\r\n  @Input() datasets: BarData[] = [];\r\n\r\n  /**\r\n   * Value of the `width` css property used to define the width of the <canvas> element\r\n   */\r\n  @Input() width: string = \"400px\";\r\n\r\n  /**\r\n   * Value of the `height` css property used to define the height of the <canvas> element\r\n   */\r\n  @Input() height: string = \"300px\";\r\n\r\n  /**\r\n   * Add custom CSS styles to the <canvas> element\r\n   */\r\n  @Input() styles: Partial<CSSStyleDeclaration> = {};\r\n\r\n  /**\r\n   * Value of the `plugins` key passed to the Chart config\r\n   */\r\n  @Input() plugins: Plugin<\"bar\">[] = [];\r\n\r\n  /**\r\n   * Activates \"stacked\" mode\r\n   */\r\n  @Input() stacked: boolean = false;\r\n\r\n  /**\r\n   * Disable accessibility patterns\r\n   */\r\n  @Input() disableAccessibility: boolean = false;\r\n\r\n  /**\r\n   * Enable hover feature (may cause strange behavior when used with width and height in %)\r\n   */\r\n  @Input() enableHoverFeature: boolean = false;\r\n\r\n  /**\r\n   * X axis title\r\n   */\r\n  @Input() xAxisTitle: string | null = null;\r\n\r\n  /**\r\n   * Y axis title\r\n   */\r\n  @Input() yAxisTitle: string | null = null;\r\n\r\n  /**\r\n   * Label of the first line in the Tooltip\r\n   */\r\n  @Input() tooltipFirstLineLabel = \"content\";\r\n\r\n  /**\r\n   * Label of the second line in the Tooltip\r\n   */\r\n  @Input() tooltipSecondLineLabel = \"content2\";\r\n\r\n  public barChartOptions: ChartOptions<\"bar\"> = {\r\n    elements: {\r\n      bar: {\r\n        borderSkipped: false,\r\n      },\r\n    },\r\n    plugins: {\r\n      legend: {\r\n        display: false,\r\n      },\r\n      title: {\r\n        display: false,\r\n      },\r\n      tooltip: {\r\n        enabled: false,\r\n        external: (context: Context) => {\r\n          const dataIndex: number =\r\n            context.tooltip.dataPoints?.[0].dataIndex ?? 0;\r\n          if (!this.labels[dataIndex] || this.labels[dataIndex] === \"\") {\r\n            return;\r\n          }\r\n          this.genericTooltipService.createTooltip(\r\n            context,\r\n            this.getTooltipData.bind(this),\r\n            {\r\n              chartType: TooltipChartType.BAR_CHART,\r\n              firstLineLabel: this.xValue,\r\n              secondLineLabel: this.yValue,\r\n            },\r\n            this.patternsColors(),\r\n            this.patternsOrderedList(),\r\n            this.disableAccessibility\r\n          );\r\n        },\r\n      },\r\n    },\r\n    scales: {\r\n      x: {\r\n        stacked: this.stacked,\r\n        title: {\r\n          display: this.xAxisTitle !== null,\r\n          text: this.xAxisTitle ?? \"\",\r\n        },\r\n      },\r\n      y: {\r\n        stacked: this.stacked,\r\n        title: {\r\n          display: this.yAxisTitle !== null,\r\n          text: this.yAxisTitle ?? \"\",\r\n        },\r\n        ticks: {\r\n          callback: (val: string | number): string => {\r\n            return this.unit === \"%\"\r\n              ? this.formatUtilitiesService.formatTicks(\r\n                  val as number,\r\n                  this.unit\r\n                )\r\n              : this.formatUtilitiesService.formatWithThousandsSeparators(\r\n                  val as number\r\n                ) +\r\n                  \" \" +\r\n                  this.unit;\r\n          },\r\n        },\r\n      },\r\n    },\r\n  };\r\n\r\n  public barChartPlugins: BarPlugin[] = [];\r\n\r\n  private readonly colourSets = chartDesign().colourSets;\r\n  private readonly patternsStandardList = chartDesign().patternsStandardList;\r\n\r\n  constructor(\r\n    private readonly barChartFunctionService: BarChartFunctionsService,\r\n    private readonly formatUtilitiesService: FormatUtilitiesService,\r\n    private readonly genericTooltipService: GenericTooltipService\r\n  ) {}\r\n\r\n  ngAfterViewInit(): void {\r\n    const chartsLabels = this.getChartLabels(this.indexOfOthersLabelIfNull());\r\n    this.gettooltipContent();\r\n    this.barChartData = {\r\n      labels: chartsLabels,\r\n      datasets: this.barChartFunctionService.getStackedDatasets(\r\n        this.datasets.map((dataset, index) => ({\r\n          data: this.getChartData(index, this.indexOfOthersLabelIfNull()),\r\n          label: this.datasets[index].label,\r\n          stack: dataset.stack ?? 0,\r\n        })),\r\n        this.stacked,\r\n        this.disableAccessibility,\r\n        this.patternsColors(),\r\n        this.patternsOrderedList(),\r\n        0\r\n      ),\r\n    };\r\n    this.barChartPlugins.push(\r\n      this.barChartFunctionService.privateGetHtmlLegendPlugin(\r\n        this.legendContainer,\r\n        this.selectMode,\r\n        this.disablePattern(),\r\n        this.patternsColors(),\r\n        this.patternsOrderedList(),\r\n        this.enableHover()\r\n      ) as unknown as BarPlugin\r\n    );\r\n  }\r\n\r\n  private getChartLabels(indexOfValueToHide: number | null): string[] {\r\n    const labels = Object.assign([], this.labels);\r\n    if (indexOfValueToHide) {\r\n      labels.splice(indexOfValueToHide, 1);\r\n    }\r\n\r\n    return labels.map((label: string) => label);\r\n  }\r\n\r\n  private indexOfOthersLabelIfNull(): number | null {\r\n    const labels = this.labels;\r\n    if (labels.includes(\"other\")) {\r\n      const index = labels.indexOf(\"other\");\r\n      if (\r\n        this.datasets[0].data[index].rate + \"\" === \"0\" &&\r\n        this.datasets[1].data[index].rate + \"\" === \"0\"\r\n      ) {\r\n        return index;\r\n      }\r\n    }\r\n    return null;\r\n  }\r\n\r\n  // computed to make the colors list reactive to the props\r\n  private patternsColors(): string[] {\r\n    return this.newPatternsOrder.length !== this.patternsStandardList.length\r\n      ? this.colourSets[this.colourSet]\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.colourSets[this.colourSet][id];\r\n        });\r\n  }\r\n\r\n  // computed to make the patterns list reactive to the props\r\n  private patternsOrderedList() {\r\n    return this.newPatternsOrder.length !== this.patternsStandardList.length\r\n      ? this.patternsStandardList\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.patternsStandardList[id];\r\n        });\r\n  }\r\n\r\n  private disablePattern(): boolean {\r\n    return this.disableAccessibility;\r\n  }\r\n\r\n  private enableHover(): boolean {\r\n    return this.enableHoverFeature;\r\n  }\r\n\r\n  private gettooltipContent(): void {\r\n    this.xValue = this.tooltipFirstLineLabel;\r\n    this.yValue = this.tooltipSecondLineLabel;\r\n  }\r\n\r\n  private getChartData(\r\n    index: number,\r\n    indexOfValueToHide: number | null,\r\n    isStacked: boolean = false\r\n  ): number[] {\r\n    const data = Object.assign([], this.datasets[index].data);\r\n    if (indexOfValueToHide) {\r\n      data.splice(indexOfValueToHide, 1);\r\n    }\r\n\r\n    return data.map(\r\n      (data: { rate?: number; amount?: number }) =>\r\n        (this.unit === \"%\" ? data.rate : data.amount) as number\r\n    );\r\n  }\r\n\r\n  private getTooltipData(context: Context): string {\r\n    const datasetIndex = context.tooltip.dataPoints[0].datasetIndex as number;\r\n    const dataIndex = context.tooltip.dataPoints[0].dataIndex as number;\r\n    const rate: string = context.tooltip.body[0].lines[0].split(\":\")[1];\r\n    const rawdata = this.datasets[datasetIndex].data[dataIndex];\r\n    const percent = rawdata.rate\r\n      ? parseFloat(rate.replace(\",\", \".\")).toFixed(2) + \"% \"\r\n      : \"\";\r\n    const amountUnit = rawdata.amountUnit ? rawdata.amountUnit : \"\";\r\n    const data = rawdata.amount\r\n      ? this.formatUtilitiesService.formatWithThousandsSeparators(\r\n          rawdata.amount\r\n        )\r\n      : \"\";\r\n    return percent + (percent && data ? \"/ \" : \"\") + data + amountUnit;\r\n  }\r\n}\r\n",
+            "sourceCode": "import {\r\n  AfterViewInit,\r\n  Component,\r\n  ElementRef,\r\n  Input,\r\n  ViewChild,\r\n} from \"@angular/core\";\r\nimport { NgChartsModule } from \"ng2-charts\";\r\nimport {\r\n  Chart as ChartJS,\r\n  Title,\r\n  Tooltip,\r\n  Legend,\r\n  BarElement,\r\n  CategoryScale,\r\n  LinearScale,\r\n  Plugin,\r\n  ChartOptions,\r\n} from \"chart.js\";\r\n\r\nimport { CommonModule } from \"@angular/common\";\r\n\r\nimport { CheckboxModule } from \"@mozaic-ds/angular/adeo\";\r\nimport { BarChartData, BarData, BarPlugin } from \"../../types/bar-data\";\r\nimport chartDesign from \"../../patterns/chart-design\";\r\nimport { BarChartFunctionsService } from \"../../services/bar-chart-functions.service\";\r\nimport {\r\n  Context,\r\n  GenericTooltipService,\r\n} from \"../../services/generic-tooltip.service\";\r\nimport { FormatUtilitiesService } from \"../../services/format-utilities.service\";\r\nimport { TooltipChartType } from \"../../types/tooltip-chart-type\";\r\nimport { BehaviorSubject } from \"rxjs\";\r\n\r\nChartJS.register(\r\n  Title,\r\n  Tooltip,\r\n  Legend,\r\n  BarElement,\r\n  CategoryScale,\r\n  LinearScale\r\n);\r\n\r\n@Component({\r\n  selector: \"moz-ng-bar-chart\",\r\n  standalone: true,\r\n  imports: [NgChartsModule, CommonModule, CheckboxModule],\r\n  templateUrl: \"./bar-chart.component.html\",\r\n  styleUrl: \"./bar-chart.component.scss\",\r\n})\r\nexport class BarChartComponent implements AfterViewInit {\r\n  @ViewChild(\"legendContainer\", { read: ElementRef })\r\n  legendContainerElementRef?: ElementRef;\r\n\r\n  selectMode = new BehaviorSubject<boolean>(false);\r\n  legendContainer = new BehaviorSubject<HTMLElement | null>(null);\r\n\r\n  public xValue?: string;\r\n  public yValue?: string;\r\n  public barChartData: BarChartData = {\r\n    labels: [],\r\n    datasets: [],\r\n  };\r\n\r\n  /**\r\n   * Value of the id attribute present on the <canvas> tag element the chart\r\n   */\r\n  @Input() chartId: string = \"radar-chart\";\r\n\r\n  /**\r\n   * Unit of values on canvas Y axis\r\n   */\r\n  @Input() unit: string = \"%\";\r\n\r\n  /**\r\n   * Labels used to label the index axis (default x axes). See [Data structures documentation](https://www.chartjs.org/docs/latest/general/data-structures.html)\r\n   */\r\n  @Input() labels: string[] = [];\r\n\r\n  /**\r\n   * Used to choose the colour set of the charts as defined in the Figma prototypes.\r\n   * 7 colour sets are currently defined:\r\n   * - Default 0 corresponds to the current one\r\n   * - 1 to 6 corresponds to the \"new\" [colour sets](https://www.figma.com/file/Hn6PyvnR385Ta0XN3KqOI9/04.-Dataviz---Documentation-(read-only)?type=design&node-id=1-69316&mode=design&t=sDytQ5BipsryWkuA-0)\r\n   * Note: All the sets are defined in /src/services/patterns/ChartDesign.ts\r\n   */\r\n  @Input() colourSet: number = 0;\r\n\r\n  /**\r\n   * 6 patterns exist and are not randomly given but follow the order defined in [patternsStandardList](/src/services/patterns/ChartDesign.ts)\r\n   * Additionally, a pattern has only one possible colour per colour set as defined in the Figma prototype.\r\n   * In some use cases, the chart may need to show a different orders of these patterns, this can be changed using the props newPatternsOrder\r\n   */\r\n  @Input() newPatternsOrder: number[] = [0, 1, 2, 3, 4, 5];\r\n\r\n  /**\r\n   * Value of the `datasets` key present in the `data` object passed to the Chart config\r\n   * If it's the stacked barchart (stacked : true in props), each dataset may contain the stack it belongs. stack Zero if not defined\r\n   */\r\n  @Input() datasets: BarData[] = [];\r\n\r\n  /**\r\n   * Value of the `width` css property used to define the width of the <canvas> element\r\n   */\r\n  @Input() width: string = \"400px\";\r\n\r\n  /**\r\n   * Value of the `height` css property used to define the height of the <canvas> element\r\n   */\r\n  @Input() height: string = \"300px\";\r\n\r\n  /**\r\n   * Add custom CSS styles to the <canvas> element\r\n   */\r\n  @Input() styles: Partial<CSSStyleDeclaration> = {};\r\n\r\n  /**\r\n   * Value of the `plugins` key passed to the Chart config\r\n   */\r\n  @Input() plugins: Plugin<\"bar\">[] = [];\r\n\r\n  /**\r\n   * Activates \"stacked\" mode\r\n   */\r\n  @Input() stacked: boolean = false;\r\n\r\n  /**\r\n   * Disable accessibility patterns\r\n   */\r\n  @Input() disableAccessibility: boolean = false;\r\n\r\n  /**\r\n   * Enable hover feature (may cause strange behavior when used with width and height in %)\r\n   */\r\n  @Input() enableHoverFeature: boolean = false;\r\n\r\n  /**\r\n   * X axis title\r\n   */\r\n  @Input() xAxisTitle: string | null = null;\r\n\r\n  /**\r\n   * Y axis title\r\n   */\r\n  @Input() yAxisTitle: string | null = null;\r\n\r\n  /**\r\n   * Label of the first line in the Tooltip\r\n   */\r\n  @Input() tooltipFirstLineLabel = \"content\";\r\n\r\n  /**\r\n   * Label of the second line in the Tooltip\r\n   */\r\n  @Input() tooltipSecondLineLabel = \"content2\";\r\n\r\n  public barChartOptions!: ChartOptions<\"bar\">;\r\n\r\n  public barChartPlugins: BarPlugin[] = [];\r\n\r\n  private readonly colourSets = chartDesign().colourSets;\r\n  private readonly patternsStandardList = chartDesign().patternsStandardList;\r\n\r\n  constructor(\r\n    private readonly barChartFunctionService: BarChartFunctionsService,\r\n    private readonly formatUtilitiesService: FormatUtilitiesService,\r\n    private readonly genericTooltipService: GenericTooltipService\r\n  ) {}\r\n\r\n  ngAfterViewInit(): void {\r\n    this.legendContainer.next(this.legendContainerElementRef?.nativeElement);\r\n    const chartsLabels = this.getChartLabels(this.indexOfOthersLabelIfNull());\r\n    this.gettooltipContent();\r\n    this.initializeChartOptions();\r\n    this.barChartData = {\r\n      labels: chartsLabels,\r\n      datasets: this.barChartFunctionService.getStackedDatasets(\r\n        this.datasets.map((dataset, index) => ({\r\n          data: this.getChartData(index, this.indexOfOthersLabelIfNull()),\r\n          label: this.datasets[index].label,\r\n          stack: dataset.stack ?? 0,\r\n        })),\r\n        this.stacked,\r\n        this.disableAccessibility,\r\n        this.patternsColors(),\r\n        this.patternsOrderedList(),\r\n        0\r\n      ),\r\n    };\r\n    this.barChartPlugins.push(\r\n      this.barChartFunctionService.privateGetHtmlLegendPlugin(\r\n        this.legendContainer,\r\n        this.selectMode,\r\n        this.disablePattern(),\r\n        this.patternsColors(),\r\n        this.patternsOrderedList(),\r\n        this.enableHover()\r\n      ) as unknown as BarPlugin\r\n    );\r\n  }\r\n\r\n  private initializeChartOptions(): void {\r\n    this.barChartOptions = {\r\n      elements: {\r\n        bar: {\r\n          borderSkipped: false,\r\n        },\r\n      },\r\n      plugins: {\r\n        legend: {\r\n          display: false,\r\n        },\r\n        title: {\r\n          display: false,\r\n        },\r\n        tooltip: {\r\n          enabled: false,\r\n          external: (context: Context) => {\r\n            const dataIndex: number =\r\n              context.tooltip.dataPoints?.[0].dataIndex ?? 0;\r\n            if (!this.labels[dataIndex] || this.labels[dataIndex] === \"\") {\r\n              return;\r\n            }\r\n            this.genericTooltipService.createTooltip(\r\n              context,\r\n              this.getTooltipData.bind(this),\r\n              {\r\n                chartType: TooltipChartType.BAR_CHART,\r\n                firstLineLabel: this.xValue,\r\n                secondLineLabel: this.yValue,\r\n              },\r\n              this.patternsColors(),\r\n              this.patternsOrderedList(),\r\n              this.disableAccessibility\r\n            );\r\n          },\r\n        },\r\n      },\r\n      scales: {\r\n        x: {\r\n          stacked: this.stacked,\r\n          title: {\r\n            display: this.xAxisTitle !== null,\r\n            text: this.xAxisTitle ?? \"\",\r\n          },\r\n        },\r\n        y: {\r\n          stacked: this.stacked,\r\n          title: {\r\n            display: this.yAxisTitle !== null,\r\n            text: this.yAxisTitle ?? \"\",\r\n          },\r\n          ticks: {\r\n            callback: (val: string | number): string => {\r\n              return this.unit === \"%\"\r\n                ? this.formatUtilitiesService.formatTicks(\r\n                    val as number,\r\n                    this.unit\r\n                  )\r\n                : this.formatUtilitiesService.formatWithThousandsSeparators(\r\n                    val as number\r\n                  ) +\r\n                    \" \" +\r\n                    this.unit;\r\n            },\r\n          },\r\n        },\r\n      },\r\n    };\r\n  }\r\n\r\n  private getChartLabels(indexOfValueToHide: number | null): string[] {\r\n    const labels = Object.assign([], this.labels);\r\n    if (indexOfValueToHide) {\r\n      labels.splice(indexOfValueToHide, 1);\r\n    }\r\n\r\n    return labels.map((label: string) => label);\r\n  }\r\n\r\n  private indexOfOthersLabelIfNull(): number | null {\r\n    const labels = this.labels;\r\n    if (labels.includes(\"other\")) {\r\n      const index = labels.indexOf(\"other\");\r\n      if (\r\n        this.datasets[0].data[index].rate + \"\" === \"0\" &&\r\n        this.datasets[1].data[index].rate + \"\" === \"0\"\r\n      ) {\r\n        return index;\r\n      }\r\n    }\r\n    return null;\r\n  }\r\n\r\n  // computed to make the colors list reactive to the props\r\n  private patternsColors(): string[] {\r\n    return this.newPatternsOrder.length !== this.patternsStandardList.length\r\n      ? this.colourSets[this.colourSet]\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.colourSets[this.colourSet][id];\r\n        });\r\n  }\r\n\r\n  // computed to make the patterns list reactive to the props\r\n  private patternsOrderedList() {\r\n    return this.newPatternsOrder.length !== this.patternsStandardList.length\r\n      ? this.patternsStandardList\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.patternsStandardList[id];\r\n        });\r\n  }\r\n\r\n  private disablePattern(): boolean {\r\n    return this.disableAccessibility;\r\n  }\r\n\r\n  private enableHover(): boolean {\r\n    return this.enableHoverFeature;\r\n  }\r\n\r\n  private gettooltipContent(): void {\r\n    this.xValue = this.tooltipFirstLineLabel;\r\n    this.yValue = this.tooltipSecondLineLabel;\r\n  }\r\n\r\n  private getChartData(\r\n    index: number,\r\n    indexOfValueToHide: number | null,\r\n    isStacked: boolean = false\r\n  ): number[] {\r\n    const data = Object.assign([], this.datasets[index].data);\r\n    if (indexOfValueToHide) {\r\n      data.splice(indexOfValueToHide, 1);\r\n    }\r\n\r\n    return data.map(\r\n      (data: { rate?: number; amount?: number }) =>\r\n        (this.unit === \"%\" ? data.rate : data.amount) as number\r\n    );\r\n  }\r\n\r\n  private getTooltipData(context: Context): string {\r\n    const datasetIndex = context.tooltip.dataPoints[0].datasetIndex as number;\r\n    const dataIndex = context.tooltip.dataPoints[0].dataIndex as number;\r\n    const rate: string = context.tooltip.body[0].lines[0].split(\":\")[1];\r\n    const rawdata = this.datasets[datasetIndex].data[dataIndex];\r\n    const percent = rawdata.rate\r\n      ? parseFloat(rate.replace(\",\", \".\")).toFixed(2) + \"% \"\r\n      : \"\";\r\n    const amountUnit = rawdata.amountUnit ? rawdata.amountUnit : \"\";\r\n    const data = rawdata.amount\r\n      ? this.formatUtilitiesService.formatWithThousandsSeparators(\r\n          rawdata.amount\r\n        )\r\n      : \"\";\r\n    return percent + (percent && data ? \"/ \" : \"\") + data + amountUnit;\r\n  }\r\n}\r\n",
             "styleUrl": "./bar-chart.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -5549,7 +5561,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 228,
+                "line": 162,
                 "jsdoctags": [
                     {
                         "name": "barChartFunctionService",
@@ -5588,7 +5600,7 @@
         },
         {
             "name": "DoughnutComponent",
-            "id": "component-DoughnutComponent-2cf6ce836de02994c71d2015684b65d8a7b921574014865d1f1e9046ad7d5e6ca8daf0f863b6fe2ec2808c5ad2bf465fb1df8ff476bcea371b379ad3f628a905",
+            "id": "component-DoughnutComponent-50d052cc2df2bfe2ce45d76cd3fe5c29f66c209492b437da2b30f43aba08693481fb84238b056878de22b811a533a42abe512a5ad532ea3387887138c96c8b53",
             "file": "src/components/doughnut/doughnut.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5792,21 +5804,6 @@
                     ]
                 },
                 {
-                    "name": "colors",
-                    "defaultValue": "this.patternsColors()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 177,
-                    "modifierKind": [
-                        125,
-                        148
-                    ]
-                },
-                {
                     "name": "colourSets",
                     "defaultValue": "chartDesign().colourSets",
                     "deprecated": false,
@@ -5839,7 +5836,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 180,
+                    "line": 178,
                     "modifierKind": [
                         125,
                         148
@@ -5933,7 +5930,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 285,
+                    "line": 283,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5946,7 +5943,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 289,
+                    "line": 287,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5966,7 +5963,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 316,
+                    "line": 314,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -5990,7 +5987,7 @@
                     "optional": false,
                     "returnType": "DoughnutData[]",
                     "typeParameters": [],
-                    "line": 293,
+                    "line": 291,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -6003,7 +6000,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 185,
+                    "line": 183,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -6013,7 +6010,7 @@
                     "optional": false,
                     "returnType": "string[]",
                     "typeParameters": [],
-                    "line": 300,
+                    "line": 298,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -6026,7 +6023,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 308,
+                    "line": 306,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -6056,7 +6053,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\r\n  AfterViewInit,\r\n  Component,\r\n  ElementRef,\r\n  Input,\r\n  ViewChild,\r\n} from \"@angular/core\";\r\nimport { NgChartsModule, BaseChartDirective } from \"ng2-charts\";\r\nimport {\r\n  Chart as ChartJS,\r\n  Title,\r\n  Tooltip,\r\n  Legend,\r\n  ArcElement,\r\n  Plugin,\r\n  ChartOptions,\r\n  ActiveElement,\r\n  ChartEvent,\r\n} from \"chart.js\";\r\nimport chartDesign from \"../../patterns/chart-design\";\r\nimport {\r\n  DoughnutChartData,\r\n  DoughnutData,\r\n  DoughnutPlugin,\r\n} from \"../../types/doughnut-data\";\r\nimport { CommonModule } from \"@angular/common\";\r\nimport {\r\n  Context,\r\n  GenericTooltipService,\r\n} from \"../../services/generic-tooltip.service\";\r\nimport { TooltipChartType } from \"../../types/tooltip-chart-type\";\r\nimport { DoughnutChartFunctionsService } from \"../../services/doughnut-chart-functions.service\";\r\nimport { FormatUtilitiesService } from \"../../services/format-utilities.service\";\r\nimport { BehaviorSubject } from \"rxjs\";\r\nimport { CheckboxModule } from \"@mozaic-ds/angular/adeo\";\r\nChartJS.register(Title, Tooltip, Legend, ArcElement);\r\n\r\n@Component({\r\n  selector: \"moz-angular-doughnut\",\r\n  standalone: true,\r\n  imports: [NgChartsModule, CommonModule, CheckboxModule],\r\n  templateUrl: \"./doughnut.component.html\",\r\n  styleUrl: \"./doughnut.component.scss\",\r\n})\r\nexport class DoughnutComponent implements AfterViewInit {\r\n  @ViewChild(\"legendContainer\", { read: ElementRef })\r\n  legendContainerElementRef?: ElementRef;\r\n\r\n  selectMode = new BehaviorSubject<boolean>(false);\r\n  legendContainer = new BehaviorSubject<HTMLElement | null>(null);\r\n\r\n  colourSets = chartDesign().colourSets;\r\n  patternsStandardList = chartDesign().patternsStandardList;\r\n\r\n  /**\r\n   * Value of the id attribute present on the <canvas> element containing the chart\r\n   */\r\n  @Input() chartId: string = \"doughnut-chart\";\r\n\r\n  /**\r\n   * Data to be passed to Chart\r\n   */\r\n  @Input() data: DoughnutData[] = [];\r\n\r\n  /**\r\n   * Labels used to label the index axis (default x axes). See [Data structures documentation](https://www.chartjs.org/docs/latest/general/data-structures.html)\r\n   */\r\n  @Input() labels: string[] = [];\r\n\r\n  /**\r\n   * Add custom CSS classes to the <canvas> element\r\n   */\r\n  @Input() cssClasses: string | undefined = undefined;\r\n\r\n  /**\r\n   * Enable/Disable centered label in the middle of the <canvas> element\r\n   */\r\n  @Input() enableCenteredLabel: boolean = true;\r\n\r\n  /**\r\n   * Disable accessibility patterns\r\n   */\r\n  @Input() disableAccessibility: boolean = false;\r\n\r\n  /**\r\n   * Enable hover feature (may cause strange behavior when used with width and height in %)\r\n   */\r\n  @Input() enableHoverFeature: boolean = false;\r\n\r\n  /**\r\n   * Used to choose the colour set of the charts as defined in the Figma prototypes.\r\n   * 7 colour sets are currently defined:\r\n   * - Default 0 corresponds to the current one\r\n   * - 1 to 6 corresponds to the \"new\" [colour sets](https://www.figma.com/file/Hn6PyvnR385Ta0XN3KqOI9/04.-Dataviz---Documentation-(read-only)?type=design&node-id=1-69316&mode=design&t=sDytQ5BipsryWkuA-0)\r\n   * Note: All the sets are defined in /src/services/patterns/ChartDesign.ts\r\n   */\r\n  @Input() colourSet: number = 0;\r\n\r\n  /**\r\n   * 6 patterns exist and are not randomly given but follow the order defined in [patternsStandardList](/src/services/patterns/ChartDesign.ts)\r\n   * Additionally, a pattern has only one possible colour per colour set as defined in the Figma prototype.\r\n   * In some use cases, the chart may need to show a different orders of these patterns, this can be changed using the props newPatternsOrder\r\n   */\r\n  @Input() newPatternsOrder: number[] = [0, 1, 2, 3, 4, 5];\r\n\r\n  /**\r\n   * Value of the `width` css property used to define the width of the <canvas> element\r\n   */\r\n  @Input() width: string = \"400px\";\r\n\r\n  /**\r\n   * Value of the `height` css property used to define the height of the <canvas> element\r\n   */\r\n  @Input() height: string = \"400px\";\r\n\r\n  /**\r\n   * Maximum number of data to be displayed in the Chart\r\n   */\r\n  @Input() maxValues: number = 5;\r\n\r\n  /**\r\n   * Add custom CSS styles to the <canvas> element\r\n   */\r\n  @Input() styles: Partial<CSSStyleDeclaration> = {};\r\n\r\n  /**\r\n   * Value of the `plugins` key passed to the Chart config\r\n   */\r\n  @Input() plugins: Plugin<\"doughnut\">[] = [];\r\n\r\n  /**\r\n   * Value of the 'others' label if maxValue is reached\r\n   */\r\n  @Input() othersLabel: string = \"others\";\r\n\r\n  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;\r\n\r\n  public doughnutChartPlugins: DoughnutPlugin[] = [];\r\n\r\n  public doughnutChartData: DoughnutChartData = {\r\n    labels: [],\r\n    datasets: [\r\n      {\r\n        data: [],\r\n      },\r\n    ],\r\n  };\r\n\r\n  public doughnutChartOptions: ChartOptions<\"doughnut\"> = {\r\n    responsive: true,\r\n    plugins: {\r\n      legend: {\r\n        display: false,\r\n        position: \"bottom\",\r\n        align: \"start\",\r\n        labels: {\r\n          pointStyle: \"rectRounded\",\r\n          usePointStyle: true,\r\n        },\r\n      },\r\n      title: {\r\n        display: false,\r\n      },\r\n    },\r\n    spacing: 0,\r\n    cutout: \"70%\",\r\n    layout: {\r\n      padding: {\r\n        top: 50,\r\n        right: 50,\r\n        bottom: 50,\r\n        left: 50,\r\n      },\r\n    },\r\n  };\r\n\r\n  public readonly colors = this.patternsColors();\r\n\r\n  constructor(\r\n    public readonly doughnutChartFunctionsService: DoughnutChartFunctionsService,\r\n    private readonly genericTooltipService: GenericTooltipService,\r\n    private readonly formatUtilitiesService: FormatUtilitiesService\r\n  ) {}\r\n\r\n  ngAfterViewInit() {\r\n    this.legendContainer.next(this.legendContainerElementRef?.nativeElement);\r\n    const doughnutDataAndLabels = {\r\n      data: this.data,\r\n      labels: this.labels,\r\n    };\r\n\r\n    this.doughnutChartOptions.onHover = (\r\n      event: ChartEvent,\r\n      elements: ActiveElement[],\r\n      chart\r\n    ) => {\r\n      if (chart) {\r\n        if (this.enableHover()) {\r\n          this.doughnutChartFunctionsService.getOnHoverOptions();\r\n        }\r\n        chart.canvas.style.cursor =\r\n          elements.length !== 0 ? \"pointer\" : \"default\";\r\n      }\r\n    };\r\n\r\n    this.doughnutChartPlugins.push(\r\n      this.doughnutChartFunctionsService.privateGetHtmlLegendPlugin(\r\n        this.legendContainer,\r\n        this.selectMode,\r\n        this.disablePattern(),\r\n        this.patternsColors(),\r\n        this.patternsOrderedList(),\r\n        this.maxValues,\r\n        doughnutDataAndLabels,\r\n        this.enableHover()\r\n      ) as unknown as DoughnutPlugin,\r\n      this.doughnutChartFunctionsService.getCenteredLabelPlugin(this.data)\r\n    );\r\n\r\n    this.doughnutChartData = {\r\n      labels: this.doughnutChartFunctionsService.getDoughnutLabels(\r\n        this.labels,\r\n        this.data,\r\n        this.maxValues,\r\n        this.othersLabel\r\n      ),\r\n      datasets: [\r\n        {\r\n          data: this.groupedData().map((x) => x.value),\r\n          backgroundColor:\r\n            this.doughnutChartFunctionsService.getBackgroundColor(\r\n              this.patternsColors(),\r\n              this.patternsOrderedList(),\r\n              this.disableAccessibility,\r\n              this.enableHoverFeature\r\n            ),\r\n          borderColor: this.doughnutChartFunctionsService.getBorderColor(\r\n            this.patternsColors(),\r\n            this.enableHoverFeature\r\n          ),\r\n        },\r\n      ],\r\n    };\r\n    (this.doughnutChartData as any).datasets[0].raw_value =\r\n      this.groupedData().map((x) => x.value);\r\n    this.doughnutChartOptions.spacing = this.data.length * 2;\r\n    let animationFrameId: number | null = null;\r\n    this.doughnutChartFunctionsService.onHoverIndex.subscribe((index) => {\r\n      if (animationFrameId !== null) {\r\n        cancelAnimationFrame(animationFrameId);\r\n      }\r\n\r\n      animationFrameId = requestAnimationFrame(() => {\r\n        this.doughnutChartData.datasets[0].backgroundColor =\r\n          this.doughnutChartFunctionsService.getBackgroundColor(\r\n            this.patternsColors(),\r\n            this.patternsOrderedList(),\r\n            this.disableAccessibility,\r\n            this.enableHoverFeature\r\n          );\r\n        this.chart?.update();\r\n      });\r\n    });\r\n\r\n    this.doughnutChartOptions.plugins = {\r\n      ...this.doughnutChartOptions.plugins,\r\n      tooltip: {\r\n        enabled: false,\r\n        external: (context: Context) => {\r\n          this.genericTooltipService.createTooltip(\r\n            context,\r\n            this.getTooltipData.bind(this),\r\n            {\r\n              chartType: TooltipChartType.DOUGHNUT,\r\n            },\r\n            this.patternsColors(),\r\n            this.patternsOrderedList(),\r\n            this.disablePattern()\r\n          );\r\n        },\r\n      },\r\n    };\r\n  }\r\n\r\n  private disablePattern(): boolean {\r\n    return this.disableAccessibility;\r\n  }\r\n\r\n  private enableHover(): boolean {\r\n    return this.enableHoverFeature;\r\n  }\r\n\r\n  private groupedData(): DoughnutData[] {\r\n    return this.doughnutChartFunctionsService.groupDataAfterNthValue(\r\n      this.data,\r\n      this.maxValues\r\n    );\r\n  }\r\n\r\n  private patternsColors(): string[] {\r\n    return this.newPatternsOrder.length !== 6\r\n      ? this.colourSets[this.colourSet]\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.colourSets[this.colourSet][id];\r\n        });\r\n  }\r\n\r\n  private patternsOrderedList() {\r\n    return this.newPatternsOrder.length !== 6\r\n      ? this.patternsStandardList\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.patternsStandardList[id];\r\n        });\r\n  }\r\n\r\n  private getTooltipData(context: Context): string {\r\n    const dataIndex = context.tooltip.dataPoints[0].dataIndex as number;\r\n    const tooltipData = this.groupedData()[dataIndex];\r\n    let rate: string | undefined = undefined;\r\n    if (tooltipData.rate) {\r\n      rate = this.formatUtilitiesService.formatWithThousandsSeparators(\r\n        tooltipData.rate\r\n      );\r\n    }\r\n    const value = this.formatUtilitiesService.formatWithThousandsSeparators(\r\n      tooltipData.value\r\n    );\r\n    const unit = tooltipData.unit ?? \"\";\r\n    if (rate) {\r\n      return `${value}${unit} (${rate})%`;\r\n    } else {\r\n      return `${value}${unit}`;\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import {\r\n  AfterViewInit,\r\n  Component,\r\n  ElementRef,\r\n  Input,\r\n  ViewChild,\r\n} from \"@angular/core\";\r\nimport { NgChartsModule, BaseChartDirective } from \"ng2-charts\";\r\nimport {\r\n  Chart as ChartJS,\r\n  Title,\r\n  Tooltip,\r\n  Legend,\r\n  ArcElement,\r\n  Plugin,\r\n  ChartOptions,\r\n  ActiveElement,\r\n  ChartEvent,\r\n} from \"chart.js\";\r\nimport chartDesign from \"../../patterns/chart-design\";\r\nimport {\r\n  DoughnutChartData,\r\n  DoughnutData,\r\n  DoughnutPlugin,\r\n} from \"../../types/doughnut-data\";\r\nimport { CommonModule } from \"@angular/common\";\r\nimport {\r\n  Context,\r\n  GenericTooltipService,\r\n} from \"../../services/generic-tooltip.service\";\r\nimport { TooltipChartType } from \"../../types/tooltip-chart-type\";\r\nimport { DoughnutChartFunctionsService } from \"../../services/doughnut-chart-functions.service\";\r\nimport { FormatUtilitiesService } from \"../../services/format-utilities.service\";\r\nimport { BehaviorSubject } from \"rxjs\";\r\nimport { CheckboxModule } from \"@mozaic-ds/angular/adeo\";\r\nChartJS.register(Title, Tooltip, Legend, ArcElement);\r\n\r\n@Component({\r\n  selector: \"moz-angular-doughnut\",\r\n  standalone: true,\r\n  imports: [NgChartsModule, CommonModule, CheckboxModule],\r\n  templateUrl: \"./doughnut.component.html\",\r\n  styleUrl: \"./doughnut.component.scss\",\r\n})\r\nexport class DoughnutComponent implements AfterViewInit {\r\n  @ViewChild(\"legendContainer\", { read: ElementRef })\r\n  legendContainerElementRef?: ElementRef;\r\n\r\n  selectMode = new BehaviorSubject<boolean>(false);\r\n  legendContainer = new BehaviorSubject<HTMLElement | null>(null);\r\n\r\n  colourSets = chartDesign().colourSets;\r\n  patternsStandardList = chartDesign().patternsStandardList;\r\n\r\n  /**\r\n   * Value of the id attribute present on the <canvas> element containing the chart\r\n   */\r\n  @Input() chartId: string = \"doughnut-chart\";\r\n\r\n  /**\r\n   * Data to be passed to Chart\r\n   */\r\n  @Input() data: DoughnutData[] = [];\r\n\r\n  /**\r\n   * Labels used to label the index axis (default x axes). See [Data structures documentation](https://www.chartjs.org/docs/latest/general/data-structures.html)\r\n   */\r\n  @Input() labels: string[] = [];\r\n\r\n  /**\r\n   * Add custom CSS classes to the <canvas> element\r\n   */\r\n  @Input() cssClasses: string | undefined = undefined;\r\n\r\n  /**\r\n   * Enable/Disable centered label in the middle of the <canvas> element\r\n   */\r\n  @Input() enableCenteredLabel: boolean = true;\r\n\r\n  /**\r\n   * Disable accessibility patterns\r\n   */\r\n  @Input() disableAccessibility: boolean = false;\r\n\r\n  /**\r\n   * Enable hover feature (may cause strange behavior when used with width and height in %)\r\n   */\r\n  @Input() enableHoverFeature: boolean = false;\r\n\r\n  /**\r\n   * Used to choose the colour set of the charts as defined in the Figma prototypes.\r\n   * 7 colour sets are currently defined:\r\n   * - Default 0 corresponds to the current one\r\n   * - 1 to 6 corresponds to the \"new\" [colour sets](https://www.figma.com/file/Hn6PyvnR385Ta0XN3KqOI9/04.-Dataviz---Documentation-(read-only)?type=design&node-id=1-69316&mode=design&t=sDytQ5BipsryWkuA-0)\r\n   * Note: All the sets are defined in /src/services/patterns/ChartDesign.ts\r\n   */\r\n  @Input() colourSet: number = 0;\r\n\r\n  /**\r\n   * 6 patterns exist and are not randomly given but follow the order defined in [patternsStandardList](/src/services/patterns/ChartDesign.ts)\r\n   * Additionally, a pattern has only one possible colour per colour set as defined in the Figma prototype.\r\n   * In some use cases, the chart may need to show a different orders of these patterns, this can be changed using the props newPatternsOrder\r\n   */\r\n  @Input() newPatternsOrder: number[] = [0, 1, 2, 3, 4, 5];\r\n\r\n  /**\r\n   * Value of the `width` css property used to define the width of the <canvas> element\r\n   */\r\n  @Input() width: string = \"400px\";\r\n\r\n  /**\r\n   * Value of the `height` css property used to define the height of the <canvas> element\r\n   */\r\n  @Input() height: string = \"400px\";\r\n\r\n  /**\r\n   * Maximum number of data to be displayed in the Chart\r\n   */\r\n  @Input() maxValues: number = 5;\r\n\r\n  /**\r\n   * Add custom CSS styles to the <canvas> element\r\n   */\r\n  @Input() styles: Partial<CSSStyleDeclaration> = {};\r\n\r\n  /**\r\n   * Value of the `plugins` key passed to the Chart config\r\n   */\r\n  @Input() plugins: Plugin<\"doughnut\">[] = [];\r\n\r\n  /**\r\n   * Value of the 'others' label if maxValue is reached\r\n   */\r\n  @Input() othersLabel: string = \"others\";\r\n\r\n  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;\r\n\r\n  public doughnutChartPlugins: DoughnutPlugin[] = [];\r\n\r\n  public doughnutChartData: DoughnutChartData = {\r\n    labels: [],\r\n    datasets: [\r\n      {\r\n        data: [],\r\n      },\r\n    ],\r\n  };\r\n\r\n  public doughnutChartOptions: ChartOptions<\"doughnut\"> = {\r\n    responsive: true,\r\n    plugins: {\r\n      legend: {\r\n        display: false,\r\n        position: \"bottom\",\r\n        align: \"start\",\r\n        labels: {\r\n          pointStyle: \"rectRounded\",\r\n          usePointStyle: true,\r\n        },\r\n      },\r\n      title: {\r\n        display: false,\r\n      },\r\n    },\r\n    spacing: 0,\r\n    cutout: \"70%\",\r\n    layout: {\r\n      padding: {\r\n        top: 50,\r\n        right: 50,\r\n        bottom: 50,\r\n        left: 50,\r\n      },\r\n    },\r\n  };\r\n\r\n  constructor(\r\n    public readonly doughnutChartFunctionsService: DoughnutChartFunctionsService,\r\n    private readonly genericTooltipService: GenericTooltipService,\r\n    private readonly formatUtilitiesService: FormatUtilitiesService\r\n  ) {}\r\n\r\n  ngAfterViewInit() {\r\n    this.legendContainer.next(this.legendContainerElementRef?.nativeElement);\r\n    const doughnutDataAndLabels = {\r\n      data: this.data,\r\n      labels: this.labels,\r\n    };\r\n\r\n    this.doughnutChartOptions.onHover = (\r\n      event: ChartEvent,\r\n      elements: ActiveElement[],\r\n      chart\r\n    ) => {\r\n      if (chart) {\r\n        if (this.enableHover()) {\r\n          this.doughnutChartFunctionsService.getOnHoverOptions();\r\n        }\r\n        chart.canvas.style.cursor =\r\n          elements.length !== 0 ? \"pointer\" : \"default\";\r\n      }\r\n    };\r\n\r\n    this.doughnutChartPlugins.push(\r\n      this.doughnutChartFunctionsService.privateGetHtmlLegendPlugin(\r\n        this.legendContainer,\r\n        this.selectMode,\r\n        this.disablePattern(),\r\n        this.patternsColors(),\r\n        this.patternsOrderedList(),\r\n        this.maxValues,\r\n        doughnutDataAndLabels,\r\n        this.enableHover()\r\n      ) as unknown as DoughnutPlugin,\r\n      this.doughnutChartFunctionsService.getCenteredLabelPlugin(this.data)\r\n    );\r\n\r\n    this.doughnutChartData = {\r\n      labels: this.doughnutChartFunctionsService.getDoughnutLabels(\r\n        this.labels,\r\n        this.data,\r\n        this.maxValues,\r\n        this.othersLabel\r\n      ),\r\n      datasets: [\r\n        {\r\n          data: this.groupedData().map((x) => x.value),\r\n          backgroundColor:\r\n            this.doughnutChartFunctionsService.getBackgroundColor(\r\n              this.patternsColors(),\r\n              this.patternsOrderedList(),\r\n              this.disableAccessibility,\r\n              this.enableHoverFeature\r\n            ),\r\n          borderColor: this.doughnutChartFunctionsService.getBorderColor(\r\n            this.patternsColors(),\r\n            this.enableHoverFeature\r\n          ),\r\n        },\r\n      ],\r\n    };\r\n    (this.doughnutChartData as any).datasets[0].raw_value =\r\n      this.groupedData().map((x) => x.value);\r\n    this.doughnutChartOptions.spacing = this.data.length * 2;\r\n    let animationFrameId: number | null = null;\r\n    this.doughnutChartFunctionsService.onHoverIndex.subscribe((index) => {\r\n      if (animationFrameId !== null) {\r\n        cancelAnimationFrame(animationFrameId);\r\n      }\r\n\r\n      animationFrameId = requestAnimationFrame(() => {\r\n        this.doughnutChartData.datasets[0].backgroundColor =\r\n          this.doughnutChartFunctionsService.getBackgroundColor(\r\n            this.patternsColors(),\r\n            this.patternsOrderedList(),\r\n            this.disableAccessibility,\r\n            this.enableHoverFeature\r\n          );\r\n        this.chart?.update();\r\n      });\r\n    });\r\n\r\n    this.doughnutChartOptions.plugins = {\r\n      ...this.doughnutChartOptions.plugins,\r\n      tooltip: {\r\n        enabled: false,\r\n        external: (context: Context) => {\r\n          this.genericTooltipService.createTooltip(\r\n            context,\r\n            this.getTooltipData.bind(this),\r\n            {\r\n              chartType: TooltipChartType.DOUGHNUT,\r\n            },\r\n            this.patternsColors(),\r\n            this.patternsOrderedList(),\r\n            this.disablePattern()\r\n          );\r\n        },\r\n      },\r\n    };\r\n  }\r\n\r\n  private disablePattern(): boolean {\r\n    return this.disableAccessibility;\r\n  }\r\n\r\n  private enableHover(): boolean {\r\n    return this.enableHoverFeature;\r\n  }\r\n\r\n  private groupedData(): DoughnutData[] {\r\n    return this.doughnutChartFunctionsService.groupDataAfterNthValue(\r\n      this.data,\r\n      this.maxValues\r\n    );\r\n  }\r\n\r\n  private patternsColors(): string[] {\r\n    return this.newPatternsOrder.length !== 6\r\n      ? this.colourSets[this.colourSet]\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.colourSets[this.colourSet][id];\r\n        });\r\n  }\r\n\r\n  private patternsOrderedList() {\r\n    return this.newPatternsOrder.length !== 6\r\n      ? this.patternsStandardList\r\n      : this.newPatternsOrder.map((id) => {\r\n          return this.patternsStandardList[id];\r\n        });\r\n  }\r\n\r\n  private getTooltipData(context: Context): string {\r\n    const dataIndex = context.tooltip.dataPoints[0].dataIndex as number;\r\n    const tooltipData = this.groupedData()[dataIndex];\r\n    let rate: string | undefined = undefined;\r\n    if (tooltipData.rate) {\r\n      rate = this.formatUtilitiesService.formatWithThousandsSeparators(\r\n        tooltipData.rate\r\n      );\r\n    }\r\n    const value = this.formatUtilitiesService.formatWithThousandsSeparators(\r\n      tooltipData.value\r\n    );\r\n    const unit = tooltipData.unit ?? \"\";\r\n    if (rate) {\r\n      return `${value}${unit} (${rate})%`;\r\n    } else {\r\n      return `${value}${unit}`;\r\n    }\r\n  }\r\n}\r\n",
             "styleUrl": "./doughnut.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -6086,7 +6083,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 177,
+                "line": 175,
                 "jsdoctags": [
                     {
                         "name": "doughnutChartFunctionsService",
@@ -7454,8 +7451,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "BarChartComponent",
-                "coveragePercent": 43,
-                "coverageCount": "17/39",
+                "coveragePercent": 42,
+                "coverageCount": "17/40",
                 "status": "medium"
             },
             {
@@ -7463,8 +7460,8 @@
                 "type": "component",
                 "linktype": "component",
                 "name": "DoughnutComponent",
-                "coveragePercent": 42,
-                "coverageCount": "15/35",
+                "coveragePercent": 44,
+                "coverageCount": "15/34",
                 "status": "medium"
             },
             {
