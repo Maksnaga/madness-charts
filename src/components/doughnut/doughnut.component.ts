@@ -135,7 +135,7 @@ export class DoughnutComponent implements AfterViewInit {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  public doughnutPlugins: DoughnutPlugin[] = [];
+  public doughnutChartPlugins: DoughnutPlugin[] = [];
 
   public doughnutChartData: DoughnutChartData = {
     labels: [],
@@ -173,6 +173,7 @@ export class DoughnutComponent implements AfterViewInit {
       },
     },
   };
+
   public readonly colors = this.patternsColors();
 
   constructor(
@@ -202,7 +203,7 @@ export class DoughnutComponent implements AfterViewInit {
       }
     };
 
-    this.doughnutPlugins.push(
+    this.doughnutChartPlugins.push(
       this.doughnutChartFunctionsService.privateGetHtmlLegendPlugin(
         this.legendContainer,
         this.selectMode,

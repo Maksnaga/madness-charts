@@ -1,11 +1,11 @@
 <div class="container">
   <div class="main" [ngStyle]="{ width: width, height: height }">
     <canvas
-      *ngIf="chartData"
+      *ngIf="barChartData"
       baseChart
-      [data]="chartData"
-      [options]="options"
-      [plugins]="htmlLegendPlugin"
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
       [type]="'bar'"
     >
     </canvas>

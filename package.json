@@ -25,6 +25,7 @@
     "chart.js": "^4.3.0",
     "ng2-charts": "^5.0.3",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "chartjs-plugin-annotation": "^3.1.0",
     "@mozaic-ds/icons": "^1.75.3",
     "@mozaic-ds/styles": "^1.76.0",
     "@mozaic-ds/tokens": "^1.75.1",

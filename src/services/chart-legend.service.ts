@@ -53,7 +53,7 @@ export class ChartLegendService {
   public getHtmlLegendPlugin(
     legendContainer: BehaviorSubject<HTMLElement | null>,
     selectMode: BehaviorSubject<boolean>,
-    onHoverIndex: BehaviorSubject<number | null>,
+    onHoverIndex: BehaviorSubject<any>,
     disableAccessibility: boolean,
     patternsColors: string[],
     patternsList: ((
@@ -235,7 +235,7 @@ export class ChartLegendService {
   public createLegendElementWithPatterns(
     item: ChartItem,
     chart: Chart,
-    onHoverIndex: BehaviorSubject<number | null>,
+    onHoverIndex: BehaviorSubject<any>,
     disableAccessibility: boolean,
     patternsColors: string[],
     patternsList: ((
@@ -267,10 +267,12 @@ export class ChartLegendService {
 
     if (enableHoverFeature) {
       boxSpan.onmouseover = (): void => {
-        onHoverIndex.next(index);
-        // isDoughnut
-        //   ? (onHoverIndex.value = index)
-        //   : (onHoverIndex.dataSetIndex = index);
+        isDoughnut
+          ? onHoverIndex.next(index)
+          : onHoverIndex.next({
+              ...onHoverIndex.value,
+              dataSetIndex: index,
+            });
       };
       boxSpan.onmouseleave = (): void => {
         onHoverIndex.next(null);
@@ -304,7 +306,7 @@ export class ChartLegendService {
     chart: Chart,
     item: ChartItem,
     selectMode: BehaviorSubject<boolean>,
-    onHoverIndex: BehaviorSubject<number | null>,
+    onHoverIndex: BehaviorSubject<any>,
     patternsColors: string[],
     enableHoverFeature: boolean
   ): HTMLElement {
@@ -328,17 +330,21 @@ export class ChartLegendService {
     }
     if (enableHoverFeature) {
       checkbox.onmouseover = (): void => {
-        onHoverIndex.next(index);
-        // isDoughnut
-        //   ? (onHoverIndex.value = index)
-        //   : (onHoverIndex.dataSetIndex = index);
+        isDoughnut
+          ? onHoverIndex.next(index)
+          : onHoverIndex.next({
+              ...onHoverIndex.value,
+              dataSetIndex: index,
+            });
         chart.update();
       };
       checkbox.onmouseleave = (): void => {
-        onHoverIndex.next(null);
-        // isDoughnut
-        //   ? (onHoverIndex.value = null)
-        //   : (onHoverIndex.dataSetIndex = -1);
+        isDoughnut
+          ? onHoverIndex.next(null)
+          : onHoverIndex.next({
+              ...onHoverIndex.value,
+              dataSetIndex: -1,
+            });
         chart.update();
       };
     }

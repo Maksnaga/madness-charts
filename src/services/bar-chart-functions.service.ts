@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { PatternService } from "./pattern.service";
 import { ColorFunctionsService } from "./color-function.service";
+import { ChartLegendService } from "./chart-legend.service";
 
 interface Dataset {
   data: number[];
@@ -14,10 +15,7 @@ interface Dataset {
 })
 export class BarChartFunctionsService {
   barChartRef = new BehaviorSubject<any>(null);
-  onHoverIndex = new BehaviorSubject<{
-    dataSetIndex: number;
-    columnIndex: number;
-  }>({
+  onHoverIndex = new BehaviorSubject<any>({
     dataSetIndex: -1,
     columnIndex: -1,
   });
@@ -25,8 +23,34 @@ export class BarChartFunctionsService {
 
   constructor(
     private readonly patternService: PatternService,
-    private readonly colorFunctionService: ColorFunctionsService
+    private readonly colorFunctionService: ColorFunctionsService,
+    private readonly chartLegendService: ChartLegendService
   ) {}
+
+  privateGetHtmlLegendPlugin(
+    legendContainer: BehaviorSubject<HTMLElement | null>,
+    selectMode: BehaviorSubject<boolean>,
+    disableAccessibility: boolean,
+    patternsColors: string[],
+    patternsList: Array<
+      (
+        hover: boolean,
+        color: string,
+        disableAccessibility: boolean
+      ) => CanvasPattern
+    >,
+    enableHoverFeature: boolean
+  ) {
+    return this.chartLegendService.getHtmlLegendPlugin(
+      legendContainer,
+      selectMode,
+      this.onHoverIndex,
+      disableAccessibility,
+      patternsColors,
+      patternsList,
+      enableHoverFeature
+    );
+  }
 
   public getStackedDatasets(
     datasets: Dataset[],
@@ -68,7 +92,8 @@ export class BarChartFunctionsService {
         borderWidth: function () {
           return disableAccessibility ? 1 : borderWithValue;
         },
-
+        categoryPercentage: 0.8,
+        barPercentage: 0.64,
         data: dataset.data,
         label: dataset.label,
         stack: `Stack ${stackDatasets ? dataset.stack : datasetIndex}`,

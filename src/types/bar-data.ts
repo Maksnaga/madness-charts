@@ -1,4 +1,5 @@
-import { ChartData } from "chart.js";
+import { ChartData, Plugin } from "chart.js";
+type AnyObject = Record<string, any>;
 
 export interface DataBarData {
   amount: number;
@@ -12,5 +13,5 @@ export interface BarData {
   data: DataBarData[];
   stack?: number;
 }
-
+export type BarPlugin = Plugin<"bar", AnyObject>;
 export type BarChartData = ChartData<"bar", number[]>;
