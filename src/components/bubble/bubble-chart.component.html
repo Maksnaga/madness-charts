@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="main">
+    <canvas
+      baseChart
+      [id]="chartId"
+      [data]="chartData()"
+      [options]="bubbleChartOptions"
+      [type]="'bubble'"
+    >
+    </canvas>
+  </div>
+  <div class="chart-legend">
+    <img
+      src="../../assets/img/bubbles.svg"
+      :alt="rAxis?.title"
+      class="bubble-icon mu-mr-025"
+    />
+    <div class="size-legend-label">
+      {{ rAxis?.title }}
+    </div>
+  </div>
+</div>

@@ -23,9 +23,8 @@ import {
 import { CommonModule } from "@angular/common";
 
 import { CheckboxModule } from "@mozaic-ds/angular/adeo";
-import { BarChartData, BarData, BarPlugin } from "../../types/bar-data";
+import { BarChartData, BarData, BarPlugin } from "./models/bar-data";
 import chartDesign from "../../patterns/chart-design";
-import { BarChartFunctionsService } from "../../services/bar-chart-functions.service";
 import {
   Context,
   GenericTooltipService,
@@ -33,6 +32,7 @@ import {
 import { FormatUtilitiesService } from "../../services/format-utilities.service";
 import { TooltipChartType } from "../../types/tooltip-chart-type";
 import { BehaviorSubject } from "rxjs";
+import { BarChartFunctionsService } from "./services/bar-chart-functions.service";
 
 ChartJS.register(
   Title,

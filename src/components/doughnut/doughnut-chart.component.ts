@@ -22,27 +22,27 @@ import {
   DoughnutChartData,
   DoughnutData,
   DoughnutPlugin,
-} from "../../types/doughnut-data";
+} from "./models/doughnut-data";
 import { CommonModule } from "@angular/common";
 import {
   Context,
   GenericTooltipService,
 } from "../../services/generic-tooltip.service";
 import { TooltipChartType } from "../../types/tooltip-chart-type";
-import { DoughnutChartFunctionsService } from "../../services/doughnut-chart-functions.service";
 import { FormatUtilitiesService } from "../../services/format-utilities.service";
 import { BehaviorSubject } from "rxjs";
 import { CheckboxModule } from "@mozaic-ds/angular/adeo";
+import { DoughnutChartFunctionsService } from "./services/doughnut-chart-functions.service";
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 @Component({
-  selector: "moz-angular-doughnut",
+  selector: "moz-ng-doughnut",
   standalone: true,
   imports: [NgChartsModule, CommonModule, CheckboxModule],
-  templateUrl: "./doughnut.component.html",
-  styleUrl: "./doughnut.component.scss",
+  templateUrl: "./doughnut-chart.component.html",
+  styleUrl: "./doughnut-chart.component.scss",
 })
-export class DoughnutComponent implements AfterViewInit {
+export class DoughnutChartComponent implements AfterViewInit {
   @ViewChild("legendContainer", { read: ElementRef })
   legendContainerElementRef?: ElementRef;
 

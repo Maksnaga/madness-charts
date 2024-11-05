@@ -2,6 +2,7 @@
   <div class="main" [ngStyle]="{ width: width, height: height }">
     <canvas
       baseChart
+      [id]="chartId"
       [data]="doughnutChartData"
       [options]="doughnutChartOptions"
       [plugins]="doughnutChartPlugins"

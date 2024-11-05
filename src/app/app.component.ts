@@ -1,18 +1,18 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
-import { DoughnutComponent } from "../components/doughnut/doughnut.component";
+import { DoughnutChartComponent } from "../components/doughnut/doughnut-chart.component";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [RouterOutlet, DoughnutComponent],
+  imports: [RouterOutlet, DoughnutChartComponent],
   template: `
     <h1>Welcome to {{ title }}!</h1>
-    <moz-angular-doughnut
+    <moz-ng-doughnut
       [labels]="labels"
       [data]="data"
       [maxValues]="3"
-    ></moz-angular-doughnut>
+    ></moz-ng-doughnut>
     <router-outlet />
   `,
   styles: [],

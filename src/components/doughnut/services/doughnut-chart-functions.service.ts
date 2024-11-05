@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Chart, Plugin } from "chart.js";
-import { DoughnutData } from "../types/doughnut-data";
-import { FormatUtilitiesService } from "./format-utilities.service";
-import { ColorFunctionsService } from "./color-function.service";
-import { ChartLegendService } from "./chart-legend.service";
+import { ChartLegendService } from "../../../services/chart-legend.service";
+import { ColorFunctionsService } from "../../../services/color-function.service";
+import { FormatUtilitiesService } from "../../../services/format-utilities.service";
+import { DoughnutData } from "../models/doughnut-data";
 
 @Injectable({
   providedIn: "root",

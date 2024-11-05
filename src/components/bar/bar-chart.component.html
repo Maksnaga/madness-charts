@@ -3,6 +3,7 @@
     <canvas
       *ngIf="barChartData"
       baseChart
+      [id]="chartId"
       [data]="barChartData"
       [options]="barChartOptions"
       [plugins]="barChartPlugins"

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { PatternService } from "./pattern.service";
-import { ColorFunctionsService } from "./color-function.service";
-import { ChartLegendService } from "./chart-legend.service";
+import { ChartLegendService } from "../../../services/chart-legend.service";
+import { ColorFunctionsService } from "../../../services/color-function.service";
+import { PatternService } from "../../../services/pattern.service";
 
 interface Dataset {
   data: number[];
@@ -113,32 +113,6 @@ export class BarChartFunctionsService {
         this.resetOnHoverIndex();
       }
     };
-  }
-
-  // Hack to force the chart to reload on Hover
-  private reloadChart() {
-    this.borderWidth.next(4);
-    this.borderWidth.next(3);
-  }
-
-  private getDatasets(
-    firstDataSet: Dataset,
-    secondDataSet: Dataset,
-    patternsColors: string[],
-    patternsList: ((
-      hover: boolean,
-      color: string,
-      disableAccessibility: boolean
-    ) => CanvasPattern)[],
-    disableAccessibility: boolean
-  ) {
-    return this.getStackedDatasets(
-      [firstDataSet, secondDataSet],
-      false,
-      disableAccessibility,
-      patternsColors,
-      patternsList
-    );
   }
 
   private getBorderColor(

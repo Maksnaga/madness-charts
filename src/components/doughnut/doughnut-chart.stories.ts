@@ -1,16 +1,16 @@
 // DoughnutChart.stories.ts;
 
 import type { Meta, StoryObj } from "@storybook/angular";
-import { DoughnutComponent } from "./doughnut.component";
+import { DoughnutChartComponent } from "./doughnut-chart.component";
 
-const meta: Meta<DoughnutComponent> = {
+const meta: Meta<DoughnutChartComponent> = {
   title: "Charts/Doughnut",
-  component: DoughnutComponent,
+  component: DoughnutChartComponent,
   tags: ["autodocs"],
 };
 
 export default meta;
-type Story = StoryObj<DoughnutComponent>;
+type Story = StoryObj<DoughnutChartComponent>;
 
 export const Default = {
   args: {
@@ -86,6 +86,6 @@ export const MultipleData = {
       },
     ],
 
-    colourSet: 0
+    colourSet: 0,
   },
 } satisfies Story;

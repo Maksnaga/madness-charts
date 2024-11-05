@@ -1,0 +1,31 @@
+@import "settings-tools/all-settings";
+@import "components/c.checkbox";
+
+.container {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    font-family: "Roboto", sans-serif;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+    align-items: center;
+    margin: 1.375rem 1.0625rem;
+    color: rgb(102, 102, 102);
+}
+
+.bubble-icon {
+    width: 16px;
+    height: 16px;
+}
