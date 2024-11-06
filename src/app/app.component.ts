@@ -8,11 +8,11 @@ import { DoughnutChartComponent } from "../components/doughnut/doughnut-chart.co
   imports: [RouterOutlet, DoughnutChartComponent],
   template: `
     <h1>Welcome to {{ title }}!</h1>
-    <moz-ng-doughnut
+    <moz-ng-doughnut-chart
       [labels]="labels"
       [data]="data"
       [maxValues]="3"
-    ></moz-ng-doughnut>
+    ></moz-ng-doughnut-chart>
     <router-outlet />
   `,
   styles: [],

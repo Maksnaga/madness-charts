@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Chart, Plugin } from "chart.js";
-import { ChartLegendService } from "../../../services/chart-legend.service";
 import { ColorFunctionsService } from "../../../services/color-function.service";
 import { FormatUtilitiesService } from "../../../services/format-utilities.service";
 import { DoughnutData } from "../models/doughnut-data";
+import { ChartCommonLegendService } from "../../../services/chart-common-legend.service";
 
 @Injectable({
   providedIn: "root",
@@ -18,7 +18,7 @@ export class DoughnutChartFunctionsService {
   constructor(
     private readonly formatUtilitiesService: FormatUtilitiesService,
     private readonly colorFunctionsService: ColorFunctionsService,
-    private readonly chartLegendService: ChartLegendService
+    private readonly chartCommonLegendService: ChartCommonLegendService
   ) {}
 
   public privateGetHtmlLegendPlugin(
@@ -37,7 +37,7 @@ export class DoughnutChartFunctionsService {
     doughnutData: any,
     enableHoverFeature: boolean
   ): Plugin<"doughnut"> {
-    return this.chartLegendService.getHtmlLegendPlugin(
+    return this.chartCommonLegendService.getHtmlLegendPlugin(
       legendContainer,
       selectMode,
       this.onHoverIndex,

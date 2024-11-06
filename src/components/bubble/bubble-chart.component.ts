@@ -111,6 +111,7 @@ export class BubbleChartComponent implements AfterViewInit {
    * Show axis labels
    */
   @Input() displayAxisLabels: boolean = true;
+
   public bubbleChartOptions: any;
 
   private readonly colourSets = chartDesign().colourSets;
@@ -210,9 +211,9 @@ export class BubbleChartComponent implements AfterViewInit {
           position: "nearest" as const,
           external: (context: Context) => {
             const datasetIndex: number =
-              context.tooltip?.dataPoints?.[0].datasetIndex || 0;
+              context.tooltip?.dataPoints?.[0].datasetIndex ?? 0;
             const dataIndex: number =
-              context.tooltip.dataPoints?.[0].dataIndex || 0;
+              context.tooltip.dataPoints?.[0].dataIndex ?? 0;
             const currentBubble: { x: number; y: number; r: number } =
               this.datasets[datasetIndex][dataIndex];
             this.bubbleTooltipService.createBubbleTooltip(

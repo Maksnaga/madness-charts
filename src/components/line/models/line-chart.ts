@@ -1,4 +1,5 @@
-import { ChartData } from "chart.js";
+import { ChartData, Plugin } from "chart.js";
+type AnyObject = Record<string, any>;
 
 export interface LineData {
   label: string;
@@ -6,4 +7,5 @@ export interface LineData {
   unit?: string;
 }
 
-export type LineChartData = ChartData<"bar", number[]>;
+export type LinePlugin = Plugin<"line", AnyObject>;
+export type LineChartData = ChartData<"line", number[]>;

@@ -8,15 +8,20 @@ import {
 } from "@angular/core";
 import { CheckboxModule } from "@mozaic-ds/angular/adeo";
 import { NgChartsModule } from "ng2-charts";
-import { LineChartData, LineData } from "./models/line-chart";
-import { Plugin } from "chart.js";
+import { LineChartData, LineData, LinePlugin } from "./models/line-chart";
+import { ActiveElement, ChartEvent, Plugin } from "chart.js";
 import chartDesign from "../../patterns/chart-design";
-import { Context } from "../../services/generic-tooltip.service";
+import {
+  Context,
+  GenericTooltipService,
+} from "../../services/generic-tooltip.service";
 import { BehaviorSubject } from "rxjs";
 import {
+  ChartCommonLegendService,
   ChartItem,
-  ChartLegendService,
-} from "../../services/chart-legend.service";
+} from "../../services/chart-common-legend.service";
+import { TooltipChartType } from "../../types/tooltip-chart-type";
+import { FormatUtilitiesService } from "../../services/format-utilities.service";
 
 @Component({
   selector: "moz-ng-line-chart",
@@ -120,6 +125,18 @@ export class LineChartComponent implements AfterViewInit {
    */
   @Input() plugins: Plugin<"line">[] = [];
 
+  public lineChartOptions: any;
+  public lineChartPlugins: LinePlugin[] = [];
+
+  public lineChartData: LineChartData = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  };
+
   private readonly selectMode = new BehaviorSubject<boolean>(false);
   private readonly legendContainer = new BehaviorSubject<HTMLElement | null>(
     null
@@ -128,38 +145,126 @@ export class LineChartComponent implements AfterViewInit {
   private readonly colourSets = chartDesign().colourSets;
   private readonly patternsStandardList = chartDesign().patternsStandardList;
 
-  constructor(private readonly chartLegendService: ChartLegendService) {}
+  constructor(
+    private readonly chartCommonLegendService: ChartCommonLegendService,
+    private readonly genericTooltipService: GenericTooltipService,
+    private readonly formatUtilitiesService: FormatUtilitiesService
+  ) {}
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.initializeChartData();
+    this.legendContainer.next(this.legendContainerElementRef?.nativeElement);
+    const htmlLegendPlugin = this.getHtmlLegendPlugin(
+      this.legendContainer,
+      this.selectMode,
+      this.chartCommonLegendService
+    );
+    this.lineChartPlugins.push(...htmlLegendPlugin);
+    this.lineChartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        datalabels: {
+          display: false,
+        },
+        tooltip: {
+          enabled: false,
+          external: (context: Context) => {
+            this.genericTooltipService.createTooltip(
+              context,
+              this.getTooltipData.bind(this),
+              {
+                chartType: TooltipChartType.LINE_CHART,
+                firstLineLabel: this.tooltipFirstLine(),
+                secondLineLabel: this.tooltipSecondLine(),
+              },
+              this.patternsColors(),
+              this.patternsOrderedList(),
+              this.disableAccessibility
+            );
+          },
+        },
+      },
+      scales: {
+        x: {
+          offset: true,
+          title: {
+            display: this.xAxisTitle !== null,
+            text: this.xAxisTitle,
+          },
+        },
+        y: {
+          type: "linear" as const,
+          display: true,
+          title: {
+            display: this.yAxisTitle !== null,
+            text: this.yAxisTitle,
+          },
+          suggestedMin: this.suggestedMin,
+          suggestedMax: this.suggestedMax,
+          position: "left" as const,
+          grid: {
+            drawOnChartArea: true,
+          },
+          ticks: {
+            callback: (val: number | string) => {
+              const unit = this.lines[0].unit;
+              return `${this.formatUtilitiesService.formatWithThousandsSeparators(
+                val as number
+              )} ${unit ?? ""}`;
+            },
+          },
+        },
+      },
+    };
 
-  public chartData() {
-    return {
+    this.lineChartOptions.onHover = (
+      event: ChartEvent,
+      elements: ActiveElement[],
+      chart: any
+    ) => {
+      if (chart) {
+        chart.canvas.style.cursor =
+          elements.length !== 0 ? "pointer" : "default";
+      }
+    };
+  }
+
+  public initializeChartData() {
+    this.lineChartData = {
       labels: this.labels.map((label: string) => label),
       datasets: this.lines.map((line: any, index) => {
         return {
           type: "line" as const,
           borderColor: this.patternsColors()[index],
           pointStyle: this.getLinePointStyle(index),
-          pointBackgroundColor: "#FFFFFF",
-          pointRadius: 5,
+          pointBackgroundColor: this.patternsColors()[index],
+          pointRadius: 6,
+          pointHoverRadius: 8,
           label: line.label,
           data: line.data,
           borderWidth: 2,
+          fill: false,
         };
       }),
     };
   }
 
-  getHtmlLegendPlugin(
+  public getHtmlLegendPlugin(
     legendContainer: BehaviorSubject<HTMLElement | null>,
     selectMode: BehaviorSubject<boolean>,
-    chartLegendService: ChartLegendService
+    chartCommonLegendService: ChartCommonLegendService
   ) {
+    const createLegendElementWithCheckbox =
+      this.createLegendElementWithCheckbox.bind(this);
     return [
       {
         id: "htmlLegend",
         afterUpdate(chart: any) {
-          const ul = chartLegendService.getOrCreateLegendList(
+          const ul = chartCommonLegendService.getOrCreateLegendList(
             legendContainer,
             "column"
           );
@@ -172,26 +277,48 @@ export class LineChartComponent implements AfterViewInit {
           const items =
             chart.options.plugins.legend.labels.generateLabels(chart);
           items.forEach((item: ChartItem) => {
-            const li = chartLegendService.createHtmlLegendListElement(
+            const li = chartCommonLegendService.createHtmlLegendListElement(
               chart,
               selectMode,
               item.datasetIndex
             );
             let liContent: HTMLElement;
             if (!selectMode.value) {
-              liContent = createLegendElementWithSquareArea(item);
+              liContent =
+                chartCommonLegendService.createLegendElementWithSquareArea(
+                  item
+                );
             } else {
               liContent = createLegendElementWithCheckbox(chart, item);
             }
             liContent.style.boxSizing = "border-box";
             li.style.marginRight = "10px";
             li.appendChild(liContent);
-            li.appendChild(createHtmlLegendItemText(item));
+            li.appendChild(
+              chartCommonLegendService.createHtmlLegendItemText(item)
+            );
             ul.appendChild(li);
           });
         },
       },
     ];
+  }
+
+  public createLegendElementWithCheckbox(chart: any, item: ChartItem) {
+    const liContent = this.chartCommonLegendService.createLegendCheckbox(
+      chart,
+      item,
+      null as unknown as string[]
+    );
+    liContent.onclick = (e: Event) => {
+      this.chartCommonLegendService.switchItemVisibility(
+        chart,
+        item.datasetIndex,
+        this.selectMode
+      );
+      e.stopPropagation();
+    };
+    return liContent;
   }
 
   // computed to make the colors list reactive to the props
@@ -234,11 +361,10 @@ export class LineChartComponent implements AfterViewInit {
   }
 
   private getLinePointStyle(index: number): string {
-    switch (index) {
-      case 1:
-        return "circle";
-      default:
-        return "rectRot";
+    if (index === 1) {
+      return "circle";
+    } else {
+      return "rectRot";
     }
   }
 }

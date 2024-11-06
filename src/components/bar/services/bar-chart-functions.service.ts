@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { ChartLegendService } from "../../../services/chart-legend.service";
 import { ColorFunctionsService } from "../../../services/color-function.service";
 import { PatternService } from "../../../services/pattern.service";
+import { ChartCommonLegendService } from "../../../services/chart-common-legend.service";
 
 interface Dataset {
   data: number[];
@@ -24,7 +24,7 @@ export class BarChartFunctionsService {
   constructor(
     private readonly patternService: PatternService,
     private readonly colorFunctionService: ColorFunctionsService,
-    private readonly chartLegendService: ChartLegendService
+    private readonly chartCommonLegendService: ChartCommonLegendService
   ) {}
 
   privateGetHtmlLegendPlugin(
@@ -41,7 +41,7 @@ export class BarChartFunctionsService {
     >,
     enableHoverFeature: boolean
   ) {
-    return this.chartLegendService.getHtmlLegendPlugin(
+    return this.chartCommonLegendService.getHtmlLegendPlugin(
       legendContainer,
       selectMode,
       this.onHoverIndex,

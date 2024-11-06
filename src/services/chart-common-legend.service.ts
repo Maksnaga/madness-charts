@@ -44,7 +44,7 @@ export interface ChartItem {
 @Injectable({
   providedIn: "root",
 })
-export class ChartLegendService {
+export class ChartCommonLegendService {
   constructor(
     private readonly patternService: PatternService,
     private readonly formatUtilitiesService: FormatUtilitiesService
@@ -422,7 +422,7 @@ export class ChartLegendService {
     const icon = document.createElement("img");
     iconTopWrapper.style.position = "absolute";
     iconTopWrapper.style.right = "-32px";
-    icon.src = "src/assets/icons/Navigation_Notification_Question_24px.svg";
+    icon.src = "../../assets/icons/Navigation_Notification_Question_24px.svg";
     icon.style.top = "0";
     icon.style.width = "1.5rem";
     icon.style.filter =
@@ -447,12 +447,12 @@ export class ChartLegendService {
     return iconTopWrapper;
   }
 
-  createLegendElementWithSquareArea(
+  public createLegendElementWithSquareArea(
     item: ChartItem,
     mainSerieFirstDataset?: boolean
-  ) {
+  ): HTMLDivElement {
     const liContent = this.createHtmlLegendLine(item, "");
-    const divPoint = createHtmlLegendDatasetSquare(item);
+    const divPoint = this.createHtmlLegendDatasetSquare(item);
     const index = item.index || item.datasetIndex;
 
     divPoint.style.width = "10px";
@@ -468,6 +468,17 @@ export class ChartLegendService {
     }
     liContent.appendChild(divPoint);
     return liContent;
+  }
+
+  public createHtmlLegendDatasetSquare(item: ChartItem): HTMLDivElement {
+    const divPoint = document.createElement("div");
+    divPoint.style.height = LEGEND_BOX_POINT_SIZE + "px";
+    divPoint.style.width = LEGEND_BOX_POINT_SIZE + "px";
+    divPoint.style.background = "white";
+    divPoint.style.borderStyle = "solid";
+    divPoint.style.borderColor = item.strokeStyle;
+    divPoint.style.borderWidth = LEGEND_BOX_BORDER;
+    return divPoint;
   }
 
   private createLegendOthersTooltip(

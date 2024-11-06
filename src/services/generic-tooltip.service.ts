@@ -124,7 +124,6 @@ export class GenericTooltipService {
       let legendIconStyle = "";
       let legendInnerStyle = "";
       const datasetType = context.tooltip?.dataPoints[0]?.dataset?.type;
-
       if (this.chartType === "RADAR" || this.chartType === "LINE_CHART") {
         legendIconStyle = this.createLegendStyle(context);
         legendInnerStyle = this.createLegendInnerStyle(context);
