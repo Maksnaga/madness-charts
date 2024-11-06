@@ -447,6 +447,29 @@ export class ChartLegendService {
     return iconTopWrapper;
   }
 
+  createLegendElementWithSquareArea(
+    item: ChartItem,
+    mainSerieFirstDataset?: boolean
+  ) {
+    const liContent = this.createHtmlLegendLine(item, "");
+    const divPoint = createHtmlLegendDatasetSquare(item);
+    const index = item.index || item.datasetIndex;
+
+    divPoint.style.width = "10px";
+    divPoint.style.height = "10px";
+    if (index % 2 === 0) {
+      mainSerieFirstDataset
+        ? (divPoint.style.borderRadius = "25px")
+        : (divPoint.style.transform = "rotate(45deg)");
+    } else {
+      mainSerieFirstDataset
+        ? (divPoint.style.transform = "rotate(45deg)")
+        : (divPoint.style.borderRadius = "25px");
+    }
+    liContent.appendChild(divPoint);
+    return liContent;
+  }
+
   private createLegendOthersTooltip(
     doughnutData: any,
     maxValueToDisplay: number

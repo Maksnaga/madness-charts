@@ -36,7 +36,7 @@ import { DoughnutChartFunctionsService } from "./services/doughnut-chart-functio
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 @Component({
-  selector: "moz-ng-doughnut",
+  selector: "moz-ng-doughnut-chart",
   standalone: true,
   imports: [NgChartsModule, CommonModule, CheckboxModule],
   templateUrl: "./doughnut-chart.component.html",
